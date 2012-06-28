@@ -200,6 +200,9 @@
     if (self.opts.useHidden) {
       self.hiddenInput.val('');
     }
+    if (self.opts.limit) {
+      self.input.show();
+    }
 
     // onClear callback
     if (typeof(self.opts.onClear) == 'function') {
@@ -318,6 +321,13 @@
     }
     if (self.opts.useHidden) {
       self.hiddenInput.val(self.currentValues.join(','));
+    }
+    if (self.opts.limit) {
+      if (self.currentValues.length >= self.opts.limit) {
+        self.input.hide();
+      } else {
+        self.input.show();
+      }
     }
     self.clearInput();
 
