@@ -43,6 +43,13 @@
     if(!self.opts.inputName) {
       self.opts.inputName = self.input.attr('name');
     }
+    if (self.opts.useHidden) {
+      self.input.removeAttr('name');
+      self.hiddenInput = $('<input type="hidden">');
+      self.input.after(self.hiddenInput);
+      self.hiddenInput.attr('name', self.opts.inputName);
+      self.hiddenInput.val(self.input.val());
+    }
 
     // wrap
     self.container = self.input.wrap("<div />")
@@ -186,6 +193,9 @@
     self.container.find("."+self.opts.listValueClass).remove();
     self.currentValues = [];
     self.titleOfValue = [];
+    if (self.opts.useHidden) {
+      self.hiddenInput.val('');
+    }
 
     // onClear callback
     if (typeof(self.opts.onClear) == 'function') {
@@ -281,7 +291,11 @@
       title = self.titleOfValue["_"+val] || val;
       $.log("TEXTBOXLIST: val="+val+" title="+title);
       className = "tag_"+title.replace(/["' ]/, "_");
-      input = "<input type='hidden' name='"+self.opts.inputName+"' value='"+val+"' title='"+title+"' />";
+      if (self.opts.useHidden) {
+        input = "<input type='hidden' value='"+val+"' />";
+      } else {
+        input = "<input type='hidden' name='"+self.opts.inputName+"' value='"+val+"' title='"+title+"' />";
+      }
       if (self.opts.enableClose) {
         close = $("<a href='#' title='remove "+title+"'></a>").
           addClass(self.opts.closeClass).
@@ -297,6 +311,9 @@
         append(title).
         prependTo(self.container);
 
+    }
+    if (self.opts.useHidden) {
+      self.hiddenInput.val(self.currentValues.join(','));
     }
     self.clearInput();
 

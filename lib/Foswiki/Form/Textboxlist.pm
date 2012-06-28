@@ -66,6 +66,7 @@ sub renderForEdit {
     while (my ($key, $value) = each(%{ $this->{parameters} })) {
         $metadata .= ", $key: '$value'";
     }
+    $metadata .= ', useHidden: 1';
 
     my $field = CGI::textfield(
         -class =>

@@ -54,6 +54,7 @@ In both cases =options= is a json object to customized the textboxlist to your n
 | clearControl | jquery selector to specify a clear button that will empty the textboxlist | undefined |
 | autocomplete | defines the source for tag suggestions displayed using a %SYSTEMWEB.JQueryUIAutocomplete widget; e.g. this can be an array or an url | undefined |
 | mustMatch | boolean flag making it mandatory for the user to choose a value from the autocomplete list. Other values are deleted (or, if the autocomplete list yields only one result, that one is used). | undefined |
+| useHidden | boolean flag to store the selected tags in comma-separated form in a single hidden input field, and remove the =name= attribute from the original input field. Together with mustMatch, this makes textboxlist work as a mandatory field in System.DataForms. | undefined |
 | onClear | method called when the list is cleared | undefined |
 | onReset | method called when the list is resetted | undefined |
 | onSelect | method called when a value is selected | undefined |
