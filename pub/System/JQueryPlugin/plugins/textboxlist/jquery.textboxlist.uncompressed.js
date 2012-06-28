@@ -71,7 +71,7 @@
         return false;
       });
     }
-   
+
     // autocompletion
     if (self.opts.autocomplete) {
       $.extend(self.opts, {
@@ -80,6 +80,14 @@
           $.log("TEXTBOXLIST: selected value="+ui.item.value+" label="+ui.item.label);
           self.select(ui.item.value);
           return false;
+        },
+        change: function(event, ui) {
+          if (!self.opts.mustMatch) return;
+          var found = $('.ui-autocomplete li').filter(function(idx) {
+            return ($(this).text() == self.input.val())
+          });
+          if (found.size()) return;
+          self.clearInput(true);
         }
       });
       self.input.attr('autocomplete', 'off').autocomplete(self.opts);
@@ -90,13 +98,31 @@
     // keypress event
     self.input.bind(($.browser.opera ? "keypress" : "keydown") + ".textboxlist", function(event) {
       // track last key pressed
-      if(event.keyCode == 13) {
+      if(event.keyCode == 13 || event.keyCode == 9) {
         var val = self.input.val();
+        var origVal = val;
+        if (self.opts.mustMatch) {
+          var found = $('.ui-autocomplete li').filter(function(idx) {
+            return ($(this).text() == self.input.val())
+          });
+          if (!found.size()) {
+            var totalCount = $('.ui-autocomplete li').size();
+            if (totalCount == 1) val = $('.ui-autocomplete li:visible:first').text();
+            else val = '';
+          }
+          // invalid value present? complain and catch keypress
+          if (!val && origVal) {
+            self.clearInput(true);
+            self.input.autocomplete("close");
+            event.preventDefault();
+            return false;
+          }
+        }
         if (val) {
           $.log("TEXTBOXLIST: closing suggestion list");
           self.input.autocomplete("close");
           self.select(val);
-          event.preventDefault();
+          if (event.keyCode == 13) event.preventDefault();
           return false;
         }
       }
@@ -137,6 +163,20 @@
     self.input.removeClass('foswikiHidden').show();
 
     return this;
+  };
+
+  // clear input field ***************************************************
+  $.TextboxLister.prototype.clearInput = function(isInvalid) {
+    $.log("TEXTBOXLIST: called clearInput");
+    var self = this;
+    this.input.val('');
+    this.input.data('autocomplete').term = '';
+    if (isInvalid) {
+      var curColor = this.input.css('background-color');
+      this.input.animate({backgroundColor: '#fcc'}, 100).animate({backgroundColor: curColor}, 500, 'swing', function() {
+        self.input.css('background-color', '');
+      });
+    }
   };
  
   // clear selection *****************************************************
@@ -258,7 +298,7 @@
         prependTo(self.container);
 
     }
-    self.input.val('');
+    self.clearInput();
 
     // onSelect callback
     if (!suppressCallback && typeof(self.opts.onSelect) == 'function') {

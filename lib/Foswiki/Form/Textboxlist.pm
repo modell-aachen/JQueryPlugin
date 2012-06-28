@@ -12,6 +12,18 @@ sub new {
     my $class = shift;
     my $this  = $class->SUPER::new(@_);
 
+    # Parse parameters passed after the type
+    my ($size, $params) = split(/\s+/, $this->{size}, 2);
+    $this->{size} = $size;
+    $params ||= '';
+    my %params;
+    # Key/value pairs
+    $params =~ s/\b([a-z]+)="([^"]*)"(?=\s|$)/$params{$1} = $2; ''/egi;
+    # Keys only (boolean)
+    $params =~ s/\b([a-z]+)\b/$params{$1} = 1; ''/egi;
+
+    $this->{parameters} = \%params;
+
     Foswiki::Plugins::JQueryPlugin::createPlugin("textboxlist");
     return $this;
 }
@@ -41,19 +53,23 @@ sub renderForEdit {
     my $metadata = '';
     if (@values) {
         if ( scalar(@values) == 1 && $values[0] =~ /^https?:/ ) {
-            $metadata = "{autocomplete: '$values[0]'}";
+            $metadata = "autocomplete: '$values[0]'";
         }
         else {
             $metadata =
-                "{autocomplete: ['"
+                "autocomplete: ['"
               . join( "', '", map { $_ =~ s/(["'])/\\$1/g; $_ } @values )
-              . "']}";
+              . "']";
         }
+    }
+
+    while (my ($key, $value) = each(%{ $this->{parameters} })) {
+        $metadata .= ", $key: '$value'";
     }
 
     my $field = CGI::textfield(
         -class =>
-          $this->cssClasses("foswikiInputField jqTextboxList $metadata"),
+          $this->cssClasses("foswikiInputField jqTextboxList \{$metadata\}"),
         -name  => $this->{name},
         -size  => $this->{size},
         -value => $value,

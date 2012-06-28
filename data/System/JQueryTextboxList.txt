@@ -53,10 +53,30 @@ In both cases =options= is a json object to customized the textboxlist to your n
 | resetControl | jquery selector to specify a reset button; will revert changes to the initial list of values | undefined |
 | clearControl | jquery selector to specify a clear button that will empty the textboxlist | undefined |
 | autocomplete | defines the source for tag suggestions displayed using a %SYSTEMWEB.JQueryUIAutocomplete widget; e.g. this can be an array or an url | undefined |
+| mustMatch | boolean flag making it mandatory for the user to choose a value from the autocomplete list. Other values are deleted (or, if the autocomplete list yields only one result, that one is used). | undefined |
 | onClear | method called when the list is cleared | undefined |
 | onReset | method called when the list is resetted | undefined |
 | onSelect | method called when a value is selected | undefined |
 | onDeselect | method called when a value is removed from the list | undefined |
+
+---+++ Passing options in System.DataForms
+
+You can pass options to the textboxlist in a !DataForm by adding them to the =Size= column. Just append a list of options, like
+this:
+
+<verbatim>
+| *Name* | *Type* | *Size* | *Values* |
+| MyField | textboxlist | 20 mustMatch closeClass="myclose" | http://autocomplete.example/getjson |
+</verbatim>
+
+As you can see, values for the options must be enclosed in double quotes. For enabling boolean options, passing the value is
+optional.
+
+Please keep in mind that several of the options are set automatically in forms. You shouldn't override those. In particular, you
+should leave the following options alone:
+
+   * autocomplete (automatically set from the =Values= column)
+   * inputName (automatically set from the =Name= column)
 
 ----++ Events
 
