@@ -54,7 +54,6 @@ jQuery(function($) {
             }
           },
           error: function(xhr, status, error) {
-            alert("Error: "+status);
             response();
           }
         });
