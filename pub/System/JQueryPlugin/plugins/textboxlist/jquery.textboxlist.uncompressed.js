@@ -49,6 +49,10 @@
       self.input.after(self.hiddenInput);
       self.hiddenInput.attr('name', self.opts.inputName);
       self.hiddenInput.val(self.input.val());
+      if (self.input.hasClass('foswikiMandatory')) {
+      	self.input.removeClass('foswikiMandatory');
+	self.hiddenInput.addClass('foswikiMandatory');
+      }
     }
 
     // wrap
