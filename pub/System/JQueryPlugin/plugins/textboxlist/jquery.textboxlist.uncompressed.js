@@ -171,7 +171,9 @@
       self.select(self.input.val().split(/\s*,\s*/).sort(), true);
     }
     self.initialValues = self.currentValues.slice();
-    self.input.removeClass('foswikiHidden').show();
+    self.input.removeClass('foswikiHidden')
+    if (!self.opts.limit || self.currentValues.length < self.opts.limit)
+        self.input.show();
 
     return this;
   };
