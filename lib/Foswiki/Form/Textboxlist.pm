@@ -67,6 +67,8 @@ sub renderForEdit {
         $metadata .= ", $key: '$value'";
     }
     $metadata .= ', useHidden: 1';
+    # make sure it stays valid syntax in case there were no args from the form
+    $metadata =~ s/^, //;
 
     my $field = CGI::textfield(
         -class =>

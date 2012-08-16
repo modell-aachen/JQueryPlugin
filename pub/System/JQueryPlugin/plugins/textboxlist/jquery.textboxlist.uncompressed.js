@@ -183,7 +183,9 @@
     $.log("TEXTBOXLIST: called clearInput");
     var self = this;
     this.input.val('');
-    this.input.data('autocomplete').term = '';
+    // best effort
+    var autodata = this.input.data('autocomplete');
+    if (autodata) autodata.term = '';
     if (isInvalid) {
       var curColor = this.input.css('background-color');
       this.input.animate({backgroundColor: '#fcc'}, 100).animate({backgroundColor: curColor}, 500, 'swing', function() {
