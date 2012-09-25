@@ -26,11 +26,7 @@ $Foswiki::cfg{JQueryPlugin}{NoConflict} = 0;
 # **STRING**
 $Foswiki::cfg{JQueryPlugin}{DefaultPlugins} = '';
 
-# **SELECT jquery-1.7.2, jquery-1.7.1**
-# Foswiki also ships jquery-1.4.3, jquery-1.4.4, jquery-1.5, jquery-1.5.1,
-# jquery-1.5.2, jquery-1.6.1, jquery-1.6.2, jquery-1.6.3, jquery-1.6.4,
-# jquery-1.7. However these older versions are deprecated and will be removed
-# from the JQueryPlugin package soon.
+# **SELECT jquery-1.7.2, jquery-1.7.1, jquery-1.8.0, jquery-1.8.1, jquery-1.8.2**
 $Foswiki::cfg{JQueryPlugin}{JQueryVersion} = 'jquery-1.7.2';
 
 # **SELECT ,base, flickr, foswiki, lightness, redmond, smoothness**

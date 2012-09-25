@@ -7,23 +7,7 @@ jQuery(function($) {
     draggable:false,
     resizable:false,
     closeOnEscape:false,
-    show:'fade',
-    open:function() {
-      var $container = $(this).parent();
-
-      // remove focus marker from first button
-      $container.find(".ui-dialog-buttonpane .ui-state-focus").removeClass("ui-state-focus");
-
-      // support icons for buttons
-      $container.find(".ui-dialog-buttonpane button[icon]").each(function() {
-        var $btn = $(this), icon = $btn.attr("icon");
-        $btn
-        .removeAttr("icon")
-        .removeClass('ui-button-text-only')
-        .addClass('ui-button-text-icon-primary ui-button-text-icon')
-        .prepend('<span class="ui-button-icon-primary ui-icon '+icon+'"></span>');
-      });
-    }
+    show:'fade'
   }, 
 
   dialogLinkDefaults = {
@@ -64,8 +48,8 @@ jQuery(function($) {
           $(this).find("form:first").submit();
         };
       }
-          
-      buttons.push($.extend(button, $button.metadata()));
+      $.extend(button, $button.metadata());
+      buttons.push(button);
     }).remove();
 
     if (buttons.length) {
@@ -79,8 +63,24 @@ jQuery(function($) {
       opts.draggable = false;
     }
 
-    $this.removeClass("jqUIDialog").dialog(opts);
+    $this.bind("dialogopen", function() {
+      var $container = $(this).parent();
 
+      // remove focus marker from first button
+      $container.find(".ui-dialog-buttonpane .ui-state-focus").removeClass("ui-state-focus");
+
+      // support icons for buttons
+      $container.find(".ui-dialog-buttonpane button[icon]").each(function() {
+        var $btn = $(this), icon = $btn.attr("icon");
+        $btn
+        .removeAttr("icon")
+        .removeClass('ui-button-text-only')
+        .addClass('ui-button-text-icon-primary ui-button-text-icon')
+        .prepend('<span class="ui-button-icon-primary ui-icon '+icon+'"></span>');
+      });
+    });
+
+    $this.removeClass("jqUIDialog").dialog(opts);
   });
 
   // dialog link
@@ -91,19 +91,25 @@ jQuery(function($) {
 
     if (href.match(/^https?:/)) {
       // this is a link to remote data
-      $.get(href, function(content) { 
-        var $content = $(content),
-            id = $content.attr('id');
-        if (!id) {
-          id = 'dialog-'+foswiki.getUniqueID();
-          $content.attr('id', id);
+      $.ajax({
+        url: href, 
+        success: function(content) { 
+          var $content = $(content),
+              id = $content.attr('id');
+          if (!id) {
+            id = 'dialog-'+foswiki.getUniqueID();
+            $content.attr('id', id);
+          }
+          if (opts.cache) {
+            $this.attr("href", "#"+id);
+          } 
+          $content.hide();
+          $("body").append($content);
+          $content.data("autoOpen", true);
+        },
+        error: function(xhr) {
+          alert("Error "+xhr.status+": "+xhr.statusText);
         }
-        if (opts.cache) {
-          $this.attr("href", "#"+id);
-        } 
-        $content.hide();
-        $("body").append($content);
-        $content.data("autoOpen", true);
       }); 
     } else {
       // this is a selector
