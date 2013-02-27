@@ -87,6 +87,15 @@ sub handleButton {
     }
     $theText = "<span> $theText </span>";
 
+    my $xss = 0;
+
+    # We need to filter onclick before we add our safe stuff to it
+    if (Foswiki::Func::getContext()->{SafeWikiSignable}) {
+        $xss++ unless !defined($theOnClick) || $theOnClick eq '' || Foswiki::Plugins::SafeWikiPlugin::Signatures::trustedInlineCode($theOnClick);
+        $xss++ unless !defined($theOnMouseOver) || $theOnMouseOver eq '' || Foswiki::Plugins::SafeWikiPlugin::Signatures::trustedInlineCode($theOnMouseOver);
+        $xss++ unless !defined($theOnMouseOut) || $theOnMouseOut eq '' || Foswiki::Plugins::SafeWikiPlugin::Signatures::trustedInlineCode($theOnMouseOut);
+    }
+
     if ($theTarget) {
         my $url;
 
@@ -98,6 +107,7 @@ sub handleButton {
               Foswiki::Func::normalizeWebTopicName( $theWeb, $theTarget );
             $url = Foswiki::Func::getViewUrl( $web, $topic );
         }
+        $xss++ if $url =~ /["\\]/;
         $theOnClick .= ";window.location.href=\"$url\";";
     }
 
@@ -136,6 +146,11 @@ sub handleButton {
 
         # entity encode
         $callbacks = _encode($callbacks);
+
+        if (!$xss && Foswiki::Func::getContext()->{SafeWikiSignable}) {
+            Foswiki::Plugins::SafeWikiPlugin::Signatures::permitInlineCode($callbacks);
+        }
+
         push @class, $callbacks;
     }
     my $class = join( ' ', @class );
