@@ -1,5 +1,5 @@
 # See bottom of file for license and copyright information
-package Foswiki::Plugins::JQueryPlugin::WIKIWORD;
+package Foswiki::Plugins::JQueryPlugin::MIGRATE;
 use strict;
 use warnings;
 
@@ -8,9 +8,9 @@ our @ISA = qw( Foswiki::Plugins::JQueryPlugin::Plugin );
 
 =begin TML
 
----+ package Foswiki::Plugins::JQueryPlugin::WIKIWORD
+---+ package Foswiki::Plugins::JQueryPlugin::MIGRATE
 
-This is the perl stub for the jquery.wikiword plugin.
+This is the perl stub for the jquery.migrate plugin.
 
 =cut
 
@@ -27,12 +27,11 @@ sub new {
 
     my $this = bless(
         $class->SUPER::new(
-            name         => 'WikiWord',
-            version      => '2.0',
-            author       => 'Michael Daum',
-            homepage     => 'http://michaeldaumconsulting.com',
-            javascript   => [ 'jquery.wikiword.js', 'jquery.wikiword.init.js' ],
-            dependencies => ['livequery']
+            name       => 'Migrate',
+            version    => '1.0',
+            author     => 'jQuery Foundation, Inc. and other contributors',
+            homepage   => 'https://github.com/jquery/jquery-migrate/',
+            javascript => ['jquery.migrate.js'],
         ),
         $class
     );
@@ -45,14 +44,14 @@ sub new {
 __END__
 Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 
-Copyright (C) 2010 Foswiki Contributors. Foswiki Contributors
+Copyright (C) 2010-2013 Foswiki Contributors. Foswiki Contributors
 are listed in the AUTHORS file in the root of this distribution.
 NOTE: Please extend that file, not this notice.
 
 Additional copyrights apply to some or all of the code in this
 file as follows:
 
-Copyright (C) 2006-2010 Michael Daum http://michaeldaumconsulting.com
+Copyright (C) 2006-2013 Michael Daum http://michaeldaumconsulting.com
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License

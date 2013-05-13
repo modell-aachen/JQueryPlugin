@@ -31,7 +31,7 @@ jQuery(function($) {
 
       button.text = $button.text();
 
-      if (typeof(href) !== 'undefined') {
+      if (typeof(href) !== 'undefined' && href !== '#') {
         button.click = function() {
           window.location.href = href;
         };
@@ -49,6 +49,11 @@ jQuery(function($) {
         };
       }
       $.extend(button, $button.metadata());
+
+      if (typeof(button.click) === 'undefined') {
+        button.click = function() {};
+      }
+
       buttons.push(button);
     }).remove();
 

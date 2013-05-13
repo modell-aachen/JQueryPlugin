@@ -24,10 +24,14 @@ $Foswiki::cfg{JQueryPlugin}{IconSearchPath} = 'FamFamFamSilkIcons, FamFamFamSilk
 $Foswiki::cfg{JQueryPlugin}{NoConflict} = 0;
 
 # **STRING**
+# List of plugins loaded by default on any page.
 $Foswiki::cfg{JQueryPlugin}{DefaultPlugins} = '';
 
-# **SELECT jquery-1.7.2, jquery-1.7.1, jquery-1.8.0, jquery-1.8.1, jquery-1.8.2**
-$Foswiki::cfg{JQueryPlugin}{JQueryVersion} = 'jquery-1.7.2';
+# **SELECT jquery-1.7.1, jquery-1.7.2, jquery-1.8.0, jquery-1.8.1, jquery-1.8.2, jquery-1.8.3, jquery-1.9.0**
+# Note that starting with jQuery-1.9.0 deprecated features have been removed. If you are experiencing
+# problems with plugins still using deprecated features then add the <code>migrate</code> plugin to the list
+# of plugins loaded by default (see above).
+$Foswiki::cfg{JQueryPlugin}{JQueryVersion} = 'jquery-1.8.3';
 
 # **SELECT ,base, flickr, foswiki, lightness, redmond, smoothness**
 $Foswiki::cfg{JQueryPlugin}{JQueryTheme} = 'foswiki';
@@ -66,9 +70,9 @@ $Foswiki::cfg{JQueryPlugin}{Plugins}{Button}{Enabled} = 1;
 $Foswiki::cfg{JQueryPlugin}{Plugins}{BlockUI}{Enabled} = 1;
 
 # **BOOLEAN**
-# Warning: this plugin is corrupts the displayed text on Firefox 7 and Safari Rev. 6-17-2011 due to errors in the underlying regular expression  code.
-# The issue is fixed in Firefox 8.
-$Foswiki::cfg{JQueryPlugin}{Plugins}{Chili}{Enabled} = 0;
+# Note that this plugin is corrupts the displayed text on Firefox 7 and Safari Rev. 6-17-2011 due to errors in the underlying regular expression  code.
+# The issue is fixed in Firefox 8.  This has been enabled again by default.
+$Foswiki::cfg{JQueryPlugin}{Plugins}{Chili}{Enabled} = 1;
 
 # **BOOLEAN**
 $Foswiki::cfg{JQueryPlugin}{Plugins}{Corner}{Enabled} = 1;
@@ -126,6 +130,9 @@ $Foswiki::cfg{JQueryPlugin}{Plugins}{Media}{Enabled} = 1;
 
 # **BOOLEAN**
 $Foswiki::cfg{JQueryPlugin}{Plugins}{Metadata}{Enabled} = 1;
+
+# **BOOLEAN**
+$Foswiki::cfg{JQueryPlugin}{Plugins}{Migrate}{Enabled} = 1;
 
 # **BOOLEAN**
 $Foswiki::cfg{JQueryPlugin}{Plugins}{Placeholder}{Enabled} = 1;

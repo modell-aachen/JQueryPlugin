@@ -10,6 +10,9 @@ my %iconCache;
 my %plugins;
 my %themes;
 my $debug;
+my $currentTheme;
+
+use constant DEFAULT_JQUERY => "jquery-1.8.3";
 
 =begin TML
 
@@ -45,9 +48,10 @@ sub init {
         registerTheme($themeName)
           if $Foswiki::cfg{JQueryPlugin}{Themes}{$themeName}{Enabled};
     }
+    $currentTheme = $Foswiki::cfg{JQueryPlugin}{JQueryTheme};
 
     # load jquery
-    my $jQuery = $Foswiki::cfg{JQueryPlugin}{JQueryVersion} || "jquery-1.4.3";
+    my $jQuery = $Foswiki::cfg{JQueryPlugin}{JQueryVersion} || DEFAULT_JQUERY;
     $jQuery .= ".uncompressed" if $debug;
     my $code =
 "<script type='text/javascript' src='%PUBURLPATH%/%SYSTEMWEB%/JQueryPlugin/$jQuery.js'></script>";
@@ -101,7 +105,7 @@ in =configure= for the named theme.
 sub createTheme {
     my ( $themeName, $url ) = @_;
 
-    $themeName ||= $Foswiki::cfg{JQueryPlugin}{JQueryTheme};
+    $themeName ||= $currentTheme;
     return 0 unless $themeName;
 
     my $normalizedName = lc($themeName);
@@ -111,6 +115,9 @@ sub createTheme {
         return 0 unless defined $themeDesc;
         $url = $themeDesc->{url};
     }
+
+    # remember last choice
+    $currentTheme = $themeName;
 
     Foswiki::Func::addToZone( "head", "JQUERYPLUGIN::THEME",
         <<HERE, "JQUERYPLUGIN::FOSWIKI, JQUERYPLUGIN::UI" );
@@ -179,6 +186,7 @@ sub finish {
     undef %themes;
     undef @iconSearchPath;
     undef %iconCache;
+    undef $currentTheme;
 }
 
 =begin TML
@@ -202,7 +210,10 @@ sub load {
     my $normalizedName = lc($pluginName);
     my $pluginDesc     = $plugins{$normalizedName};
 
-    return undef unless $pluginDesc;
+    unless ($pluginDesc) {
+        print STDERR "ERROR: no such jQuery plugin $pluginName\n";
+        return undef;
+    }
 
     unless ( defined $pluginDesc->{instance} ) {
 
@@ -294,14 +305,14 @@ sub getIconUrlPath {
             # SMELL: store violation assumes the we have got file-level access
             # better use store api
             my $iconDir =
-                $Foswiki::cfg{PubDir} . '/' 
-              . $web . '/' 
+                $Foswiki::cfg{PubDir} . '/'
+              . $web . '/'
               . $topic . '/'
               . $iconName . '.png';
             if ( -f $iconDir ) {
                 $iconPath =
-                    Foswiki::Func::getPubUrlPath() . '/' 
-                  . $web . '/' 
+                    Foswiki::Func::getPubUrlPath() . '/'
+                  . $web . '/'
                   . $topic . '/'
                   . $iconName . '.png';
                 last;    # first come first serve

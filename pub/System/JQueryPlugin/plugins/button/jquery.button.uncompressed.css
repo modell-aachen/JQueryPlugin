@@ -1,11 +1,10 @@
 /* buttons */
 .jqButton {
-  margin:0px 8px 0px 0px;
-  display:block;
-  float:left;
-  height:23px;
+  margin:0 0.4em 0 0;
   padding:0px;
   white-space:nowrap;
+  display: inline-block;
+  zoom: 1;
 }
 a.jqButton:visited,
 a.jqButton:link,
@@ -28,18 +27,15 @@ a.jqButton:hover {
 .jqButton.foswikiRight:hover,
 .jqButton.foswikiRight {
   float:right;
-  margin:0px 0px 0px 8px;
+  margin:0 0 0 0.4em;
 }
 .jqButton {
   text-shadow:0px 1px #fff;
 }
 
 .jqButtonSimple:hover,
+.jqButton:active,
 .jqButton:hover {
-  color:#C60206;
-}
-.jqButton:hover,
-.jqButton:active { /* pattern skin */
   color:#C60206;
 }
 
@@ -48,13 +44,11 @@ a.jqButton:hover {
   background-position:top left;
   background-repeat:no-repeat;
   cursor:pointer;
-  float:left;
-  height:23px;
   line-height:23px;
   padding:0px 5px 0px 8px;
   margin:0px 3px 0px 0px;
-  /* ie 6 */
-  _margin:0px 1px 0px 0px;
+  display: inline-block;
+  zoom: 1;
 }
 
 .jqButton:active {
@@ -81,7 +75,7 @@ a.jqButton:hover {
 }
 .jqButton:active .jqButtonIcon,
 .jqButton .jqButtonIcon {
-  background-position:0px 4px;
+  background-position:0 49%;
   background-repeat:no-repeat;
   margin:0px;
 }
@@ -113,24 +107,5 @@ a.jqButton:hover {
 }
 a.jqButtonCenter {
   margin-right:0px;
-}
-
-/* rounded cornders */
-.jqRounded div {
-  padding:10px;
-  margin:0px;
-}
-.jqRounded h2 {
-  margin:0px;
-  padding:5px;
-  font-size:130%;
-  text-align:center;
-  border:0px;
-}
-.jqRounded ol,
-.jqRounded ul {
-  margin:0px;
-  padding:0px;
-  padding-left:20px;
 }
 
