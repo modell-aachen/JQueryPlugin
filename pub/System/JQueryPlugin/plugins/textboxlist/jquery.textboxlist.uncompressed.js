@@ -106,37 +106,43 @@
       $.log("TEXTBOXLIST: no autocomplete");
     }
 
-    // keypress event
-    self.input.bind(($.browser.opera ? "keypress" : "keydown") + ".textboxlist", function(event) {
-      // track last key pressed
-      if(event.keyCode == 13 || event.keyCode == 9) {
-        var val = self.input.val();
-        var origVal = val;
-        if (self.opts.mustMatch) {
-          var found = $('.ui-autocomplete li').filter(function(idx) {
-            return ($(this).text() == self.input.val())
-          });
-          if (!found.size()) {
-            var totalCount = $('.ui-autocomplete li').size();
-            if (totalCount == 1) val = $('.ui-autocomplete li:visible:first').text();
-            else val = '';
-          }
-          // invalid value present? complain and catch keypress
-          if (!val && origVal) {
-            self.clearInput(true);
-            self.input.autocomplete("close");
-            event.preventDefault();
-            return false;
-          }
+    var submitNew = function(event) {
+      var val = self.input.val();
+      if (val == '') return;
+      var origVal = val;
+      if (self.opts.mustMatch) {
+        var found = $('.ui-autocomplete li').filter(function(idx) {
+          return ($(this).text() == self.input.val())
+        });
+        if (!found.size()) {
+          var totalCount = $('.ui-autocomplete li').size();
+          if (totalCount == 1) val = $('.ui-autocomplete li:visible:first').text();
+          else val = '';
         }
-        if (val) {
-          $.log("TEXTBOXLIST: closing suggestion list");
+        // invalid value present? complain and catch keypress
+        if (!val && origVal) {
+          self.clearInput(true);
           self.input.autocomplete("close");
-          self.select(val);
-          if (event.keyCode == 13) event.preventDefault();
+          event.preventDefault();
           return false;
         }
       }
+      if (val) {
+        $.log("TEXTBOXLIST: closing suggestion list");
+        self.input.autocomplete("close");
+        self.select(val);
+        if (event.keyCode == 13) event.preventDefault();
+        return false;
+      }
+    };
+
+    // keypress event
+    self.input.bind(($.browser.opera ? "keypress" : "keydown") + ".textboxlist", function(event) {
+      // track last key pressed
+      if(event.keyCode == 13 || event.keyCode == 9) submitNew(event);
+    });
+    self.input.bind('blur.textboxlist', function(event) {
+      submitNew(event);
     });
 
     // add event
