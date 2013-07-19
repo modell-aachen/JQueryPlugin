@@ -141,9 +141,6 @@
       // track last key pressed
       if(event.keyCode == 13 || event.keyCode == 9) submitNew(event);
     });
-    self.input.bind('blur.textboxlist', function(event) {
-      submitNew(event);
-    });
 
     // add event
     self.input.bind("AddValue", function(e, val) {
