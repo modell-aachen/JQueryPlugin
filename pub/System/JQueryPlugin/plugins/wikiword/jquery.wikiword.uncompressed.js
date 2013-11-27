@@ -12,7 +12,7 @@
  */
 
 /***************************************************************************
- * plugin definition 
+ * plugin definition
  */
 (function($) {
 $.wikiword = {
@@ -83,7 +83,7 @@ $.wikiword = {
    * constructor
    */
   build: function(source, options) {
-   
+
     // build main options before element iteration
     var opts = $.extend({}, $.fn.wikiword.defaults, options);
 
@@ -93,7 +93,7 @@ $.wikiword = {
     return this.each(function() {
       var $this = $(this);
 
-      // build element specific options. 
+      // build element specific options.
       // note you may want to install the Metadata plugin
       var thisOpts = $.meta ? $.extend({}, opts, $this.data()) : opts;
 
@@ -145,7 +145,7 @@ $.wikiword = {
 
     // transliterate unicode chars
     for (var i = 0; i < source.length; i++) {
-      c = source[i];
+      c = source.charAt( i );
       result += $.wikiword.downgradeMap[c] || c;
     }
 
