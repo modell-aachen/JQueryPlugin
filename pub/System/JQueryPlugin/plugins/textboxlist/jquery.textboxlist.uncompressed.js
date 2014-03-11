@@ -306,9 +306,9 @@
       $.log("TEXTBOXLIST: val="+val+" title="+title);
       className = "tag_"+title.replace(/["' ]/, "_");
       if (self.opts.useHidden) {
-        input = "<input type='hidden' value='"+val+"' />";
+        input = $("<input type='hidden' />").val(val);
       } else {
-        input = "<input type='hidden' name='"+self.opts.inputName+"' value='"+val+"' title='"+title+"' />";
+        input = $("<input type='hidden' name='"+self.opts.inputName+"' title='"+title+"' />").val(val);
       }
       if (self.opts.enableClose) {
         close = $("<a href='#' title='remove "+title+"'></a>").
