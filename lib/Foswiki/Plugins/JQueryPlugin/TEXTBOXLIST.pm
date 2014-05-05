@@ -28,7 +28,7 @@ sub new {
     my $this = bless(
         $class->SUPER::new(
             name     => 'TextboxList',
-            version  => '1.01modac3',
+            version  => '1.01modac4',
             author   => 'Michael Daum',
             homepage => 'http://foswiki.org/Extensions/JQueryPlugin',
             css      => ['jquery.textboxlist.css'],
