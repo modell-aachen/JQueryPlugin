@@ -171,7 +171,7 @@
     self.currentValues = [];
     self.titleOfValue = [];
     if (self.input.val()) {
-      self.select(self.input.val().split(/\s*,\s*/).sort(), true);
+      self.select(self.input.val().split(/\s*,\s*/), true);
     }
     self.initialValues = self.currentValues.slice();
     self.input.removeClass('foswikiHidden');
@@ -241,7 +241,7 @@
       values = values.join(',');
     } 
     if (typeof(values) !== 'undefined' && typeof(values) !== 'null') {
-      values = values.split(/\s*,\s*/).sort();
+      values = values.split(/\s*,\s*/);
     } else {
       values = '';
     }
