@@ -97,6 +97,9 @@ $.wikiword = {
       // note you may want to install the Metadata plugin
       var thisOpts = $.meta ? $.extend({}, opts, $this.data()) : opts;
 
+      var forbidden = thisOpts.forbidden || "[^a-zA-Z\\d]";
+      thisOpts.forbiddenChars = new RegExp(forbidden, "g");
+
       $source.change(function() {
         $.wikiword.handleChange($source, $this, thisOpts);
       }).keyup(function() {
@@ -115,7 +118,7 @@ $.wikiword = {
     });
 
     if (result || !thisOpts.initial) {
-      result = $.wikiword.wikify(result);
+      result = $.wikiword.wikify(result, thisOpts);
 
       if (thisOpts.suffix) {
         result += thisOpts.suffix;
@@ -139,7 +142,7 @@ $.wikiword = {
   /***************************************************************************
    * convert a source string to a valid WikiWord
    */
-  wikify: function (source) {
+  wikify: function (source, thisOpts) {
 
     var result = '', c;
 
@@ -155,7 +158,7 @@ $.wikiword = {
     });
 
     // remove all non-mixedalphanums
-    result = result.replace(/[^a-zA-Z\d]/g, "");
+    result = result.replace(thisOpts.forbiddenChars, "");
 
     // remove all spaces
     result = result.replace(/\s/g, "");

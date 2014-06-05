@@ -25,7 +25,8 @@ to derive the !WikiWord using metadata of the following format:
   source:'selector', /* e.g. '#projectTitle' */
   initial:'initial value', /* e.g. 'Project...' */
   prefix:'string to be prefixed to the wiki word', /* e.g. 'Project' */
-  suffix:'string to be appended to the wiki word' /* e.g. 'AUTOINC0' */
+  suffix:'string to be appended to the wiki word', /* e.g. 'AUTOINC0' */
+  forbidden:'RegEx for characters to be removed' /* e.g. '[^a-zA-Z\\d]' */
 }
 </verbatim>
 
