@@ -1,18 +1,16 @@
 /*
- * jQuery WikiWord plugin 2.0
+ * jQuery WikiWord plugin 3.00
  *
- * Copyright (c) 2008-2010 Michael Daum http://michaeldaumconsulting.com
+ * Copyright (c) 2008-2014 Foswiki Contributors http://foswiki.org
  *
  * Dual licensed under the MIT and GPL licenses:
  *   http://www.opensource.org/licenses/mit-license.php
  *   http://www.gnu.org/licenses/gpl.html
  *
- * Revision: $Id$
- *
  */
 
 /***************************************************************************
- * plugin definition
+ * plugin definition 
  */
 (function($) {
 $.wikiword = {
@@ -83,22 +81,19 @@ $.wikiword = {
    * constructor
    */
   build: function(source, options) {
-
+   
     // build main options before element iteration
-    var opts = $.extend({}, $.fn.wikiword.defaults, options);
-
-    var $source = $(source);
+    var opts = $.extend({}, $.wikiword.defaults, options),
+        $source = $(source);
 
     // iterate and reformat each matched element
     return this.each(function() {
-      var $this = $(this);
+      var $this = $(this),
+          thisOpts = $.meta ? $.extend({}, opts, $this.data()) : opts;
 
-      // build element specific options.
-      // note you may want to install the Metadata plugin
-      var thisOpts = $.meta ? $.extend({}, opts, $this.data()) : opts;
-
-      var forbidden = thisOpts.forbidden || "[^a-zA-Z\\d]";
-      thisOpts.forbiddenChars = new RegExp(forbidden, "g");
+      // generate RegExp for filtered chars
+      thisOpts.allowedRegex = new RegExp('['+thisOpts.allow+']+', "g");
+      thisOpts.forbiddenRegex = new RegExp('[^'+thisOpts.allow+']+', "g");
 
       $source.change(function() {
         $.wikiword.handleChange($source, $this, thisOpts);
@@ -111,23 +106,23 @@ $.wikiword = {
   /***************************************************************************
    * handler for source changes
    */
-  handleChange: function(source, target, thisOpts) {
+  handleChange: function(source, target, opts) {
     var result = '';
     source.each(function() {
       result += $(this).is(':input')?$(this).val():$(this).text();
     });
 
-    if (result || !thisOpts.initial) {
-      result = $.wikiword.wikify(result, thisOpts);
+    if (result || !opts.initial) {
+      result = $.wikiword.wikify(result, opts);
 
-      if (thisOpts.suffix) {
-        result += thisOpts.suffix;
+      if (opts.suffix && result.indexOf(opts.suffix, result.length - opts.suffix.length) == -1) {
+        result += opts.suffix;
       }
-      if (thisOpts.prefix) {
-        result = thisOpts.prefix+result;
+      if (opts.prefix && result.indexOf(opts.prefix) !== 0) {
+        result = opts.prefix+result;
       }
     } else {
-      result = thisOpts.initial;
+      result = opts.initial;
     }
 
     target.each(function() {
@@ -142,23 +137,23 @@ $.wikiword = {
   /***************************************************************************
    * convert a source string to a valid WikiWord
    */
-  wikify: function (source, thisOpts) {
+  wikify: function (source, opts) {
 
-    var result = '', c;
+    var result = '', c, i;
 
     // transliterate unicode chars
-    for (var i = 0; i < source.length; i++) {
-      c = source.charAt( i );
+    for (i = 0; i < source.length; i++) {
+      c = source[i];
       result += $.wikiword.downgradeMap[c] || c;
     }
 
     // capitalize
-    result = result.replace(/[a-zA-Z\d]+/g, function(a) {
+    result = result.replace(opts.allowedRegex, function(a) {
         return a.charAt(0).toLocaleUpperCase() + a.substr(1);
     });
 
-    // remove all non-mixedalphanums
-    result = result.replace(thisOpts.forbiddenChars, "");
+    // remove all forbidden chars
+    result = result.replace(opts.forbiddenRegex, "");
 
     // remove all spaces
     result = result.replace(/\s/g, "");
@@ -172,13 +167,22 @@ $.wikiword = {
   defaults: {
     suffix: '',
     prefix: '',
-    initial: ''
+    initial: '',
+    allow: 'a-zA-Z\\d'
   }
 };
 
 /* register by extending jquery */
+$.fn.wikiword = $.wikiword.build;
+
+/* init */
 $(function() {
-  $.fn.wikiword = $.wikiword.build;
+  $(".jqWikiWord:not(.jqInitedWikiWord)").livequery(function() {
+    var $this = $(this), options;
+    $this.addClass("jqInitedWikiWord");
+    options = $.extend({}, $this.metadata());
+    $this.wikiword(options.source, options);
+  });
 });
 
 })(jQuery);

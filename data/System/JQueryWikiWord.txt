@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" date="1272460160" format="1.1" rev="4" version="1"}%
+%META:TOPICINFO{author="ProjectContributor" date="1402036889" format="1.1" version="1"}%
 %META:TOPICPARENT{name="JQueryPlugin"}%
 ---+ %TOPIC%
 %JQPLUGINS{"wikiword"
@@ -26,21 +26,21 @@ to derive the !WikiWord using metadata of the following format:
   initial:'initial value', /* e.g. 'Project...' */
   prefix:'string to be prefixed to the wiki word', /* e.g. 'Project' */
   suffix:'string to be appended to the wiki word', /* e.g. 'AUTOINC0' */
-  forbidden:'RegEx for characters to be removed' /* e.g. '[^a-zA-Z\\d]' */
+  allow:'characters that are allowed in a wiki word' /* e.g. 'a-zA-Z\\d' */
 }
 </verbatim>
 
 ---++ Examples
 <div class="foswikiFormSteps">
-  <h2>Add Project</h2>
+  <h2>New Project</h2>
   <form action="%SCRIPTURLPATH{"edit"}%/%WEB%" />
   <div class="foswikiFormStep">
     <h3>Title:</h3>
-    <input type="text" id="prjTitle" size="60" name="TopicTitle" />
+    <input type="text" id="prjTitle" size="60" name="TopicTitle" class="foswikiInputField" />
   </div>
   <div class="foswikiFormStep">
     <h3>Year:</h3>
-    <select id="prjYear" name="prjYear">
+    <select class="foswikiSelect" id="prjYear" name="prjYear">
       <option></option>
       <option>2005</option>
       <option>2006</option>
@@ -53,7 +53,7 @@ to derive the !WikiWord using metadata of the following format:
   </div>
   <div class="foswikiFormStep">
     <h3>Project topic:</h3>
-    <input type="text" id="prjTopic" size="60" name="topic" class="jqWikiWord {source:'#prjTitle, #prjYear', prefix:'Project', initial:'Project...', suffix:'AUTOINC0'}" />
+    <input type="text" id="prjTopic" size="60" name="topic" class="foswikiInputField jqWikiWord {source:'#prjTitle, #prjYear', prefix:'Project', initial:'Project...', suffix:'AUTOINC0', allow:'a-zA-Z\\d\-_'}" />
   </div>
   <div class="foswikiFormStep foswikiFormLast">
     %BUTTON{"Submit" icon="tick" type="submit"}%
