@@ -230,9 +230,6 @@ $Foswiki::cfg{JQueryPlugin}{Plugins}{'UI::Datepicker'}{Enabled} = 1;
 $Foswiki::cfg{JQueryPlugin}{Plugins}{'UI::Progressbar'}{Enabled} = 1;
 
 # **BOOLEAN**
-$Foswiki::cfg{JQueryPlugin}{Plugins}{'UI::Tooltip'}{Enabled} = 1;
-
-# **BOOLEAN**
 $Foswiki::cfg{JQueryPlugin}{Plugins}{Validate}{Enabled} = 1;
 
 # **BOOLEAN**
