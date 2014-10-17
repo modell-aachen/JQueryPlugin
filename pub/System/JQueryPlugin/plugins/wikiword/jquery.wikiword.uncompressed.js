@@ -105,6 +105,74 @@ $.wikiword = {
     });
   },
 
+  // gets the start/end of the selection, even in IE8
+  // taken from here: http://stackoverflow.com/questions/235411/is-there-an-internet-explorer-approved-substitute-for-selectionstart-and-selecti
+  getStartEnd: function (el) {
+    var start = 0, end = 0, normalizedValue, range,
+        textInputRange, len, endRange;
+
+    if (typeof el.selectionStart == "number" && typeof el.selectionEnd == "number") {
+        start = el.selectionStart;
+        end = el.selectionEnd;
+    } else {
+        range = document.selection.createRange();
+
+        if (range && range.parentElement() == el) {
+            len = el.value.length;
+            normalizedValue = el.value.replace(/\r\n/g, "\n");
+
+            // Create a working TextRange that lives only in the input
+            textInputRange = el.createTextRange();
+            textInputRange.moveToBookmark(range.getBookmark());
+
+            // Check if the start and end of the selection are at the very end
+            // of the input, since moveStart/moveEnd doesn't return what we want
+            // in those cases
+            endRange = el.createTextRange();
+            endRange.collapse(false);
+
+            if (textInputRange.compareEndPoints("StartToEnd", endRange) > -1) {
+                start = end = len;
+            } else {
+                start = -textInputRange.moveStart("character", -len);
+                start += normalizedValue.slice(0, start).split("\n").length - 1;
+
+                if (textInputRange.compareEndPoints("EndToEnd", endRange) > -1) {
+                    end = len;
+                } else {
+                    end = -textInputRange.moveEnd("character", -len);
+                    end += normalizedValue.slice(0, end).split("\n").length - 1;
+                }
+            }
+        }
+    }
+
+    return {
+        start: start,
+        end: end
+    };
+  },
+
+  // sets the start/end of the selection,
+  setStartEnd: function (el, start, end) {
+    var range;
+
+    if (typeof el.selectionStart == "number" && typeof el.selectionEnd == "number") {
+        el.selectionStart = start;
+        el.selectionEnd = end;
+    } else {
+        // Most likely IE8 or older
+        var length = $(el).val().length;
+        range = document.selection.createRange();
+        range.collapse(true);
+        range.moveStart('character', -length);
+        range.moveEnd('character', -length);
+        range.moveEnd('character', end);
+        range.moveStart('character', start);
+        range.select();
+    }
+  },
+
   /***************************************************************************
    * handler for source changes
    */
@@ -114,17 +182,42 @@ $.wikiword = {
       result += $(this).is(':input')?$(this).val():$(this).text();
     });
 
+    // see if source and target are identical;
+    // if that is the case: update caret position
+    var sourceTargetElement;
+    target.each(function() {
+      if($(this).is(source)) sourceTargetElement = this;
+    });
+    var selectionStart, selectionEnd;
+    if(sourceTargetElement) try {
+      var startEnd = $.wikiword.getStartEnd(sourceTargetElement);
+      selectionStart = startEnd.start;
+      selectionEnd = startEnd.end;
+    } catch(e) {
+      // we have to do a try-catch, because accessing selectionStart on an
+      // input of type hidden will throw an exception (on firefox at least)
+        sourceTargetElement = null;
+    }
+
     if (result || !opts.initial) {
-      result = $.wikiword.wikify(result, opts);
+      var wikify = $.wikiword.wikify(result, opts, selectionStart, selectionEnd);
+      result = wikify.result;
+      selectionStart = wikify.selectionStart;
+      selectionEnd = wikify.selectionEnd;
 
       if (opts.suffix && result.indexOf(opts.suffix, result.length - opts.suffix.length) == -1) {
+        if(selectionStart == result.length) selectionStart += opts.suffix.length;
+        if(selectionEnd == result.length) selectionEnd += opts.suffix.length;
         result += opts.suffix;
       }
       if (opts.prefix && result.indexOf(opts.prefix) !== 0) {
         result = opts.prefix+result;
+        selectionStart += opts.prefix.length;
+        selectionEnd += opts.prefix.length;
       }
     } else {
       result = opts.initial;
+      selectionStart = selectionEnd = opts.initial.length;
     }
 
     target.each(function() {
@@ -134,21 +227,36 @@ $.wikiword = {
         $(this).text(result);
       }
     });
+    if(sourceTargetElement) {
+      $.wikiword.setStartEnd(sourceTargetElement, selectionStart, selectionEnd);
+    }
   },
 
   /***************************************************************************
    * convert a source string to a valid WikiWord
    */
-  wikify: function (source, opts) {
+  wikify: function (source, opts, selectionStart, selectionEnd) {
 
     var result = '', c, i;
 
     opts = opts || $.wikiword.defaults;
 
+    if(typeof selectionStart === 'undefined') selectionStart = source.length;
+    if(typeof selectionEnd === 'undefined') selectionEnd = selectionStart;
+
     // transliterate unicode chars
     for (i = 0; i < source.length; i++) {
       c = source[i];
-      result += $.wikiword.downgradeMap[c] || c;
+      var downgraded = $.wikiword.downgradeMap[c] || c;
+      result += downgraded;
+      if(downgraded.length != 1) {
+          if(i <= selectionStart) {
+              selectionStart += downgraded.length -1;
+          }
+          if(i <= selectionEnd) {
+              selectionEnd += downgraded.length -1;
+          }
+      }
     }
 
     // capitalize
@@ -156,13 +264,33 @@ $.wikiword = {
         return a.charAt(0).toLocaleUpperCase() + a.substr(1);
     });
 
-    // remove all forbidden chars
-    result = result.replace(opts.forbiddenRegex, "");
+    // split into [before selection, selected, after selection], so I can
+    // place the caret after applying the regexes
+    var sliced = [
+        result.substr(0, selectionStart),
+        result.substr(selectionStart, selectionEnd - selectionStart),
+        result.substr(selectionEnd)
+    ];
 
-    // remove all spaces
-    result = result.replace(/\s/g, "");
+    $.each(sliced, function(idx, slice) {
+        // remove all forbidden chars
+        slice = slice.replace(opts.forbiddenRegex, "");
 
-    return result;
+        // remove all spaces
+        slice = slice.replace(/\s/g, "");
+
+        sliced[idx] = slice;
+    });
+
+    selectionStart = sliced[0].length;
+    selectionEnd = sliced[0].length + sliced[1].length;
+    result = sliced.join('');
+
+    return {
+        result: result,
+        selectionStart: selectionStart,
+        selectionEnd: selectionEnd
+    };
   },
 
   /***************************************************************************
