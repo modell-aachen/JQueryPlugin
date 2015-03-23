@@ -133,6 +133,7 @@ lib/Foswiki/Plugins/JQueryPlugin/UI/DRAGGABLE.pm 0644
 lib/Foswiki/Plugins/JQueryPlugin/UI/DIALOG.pm 0644
 lib/Foswiki/Plugins/JQueryPlugin/UI/ACCORDION.pm 0644
 lib/Foswiki/Plugins/JQueryPlugin/UI/RESIZABLE.pm 0644
+lib/Foswiki/Plugins/JQueryPlugin/UI/SORTABLE.pm 0644
 lib/Foswiki/Plugins/JQueryPlugin/VALIDATE.pm 0644
 lib/Foswiki/Plugins/JQueryPlugin/WIKIWORD.pm 0644
 lib/Foswiki/Plugins/JQueryPlugin/TMPL.pm 0644
