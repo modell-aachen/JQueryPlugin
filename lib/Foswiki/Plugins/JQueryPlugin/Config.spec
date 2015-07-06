@@ -206,6 +206,9 @@ $Foswiki::cfg{JQueryPlugin}{Plugins}{'UI::Autocomplete'}{Enabled} = 1;
 $Foswiki::cfg{JQueryPlugin}{Plugins}{'UI::Resizable'}{Enabled} = 1;
 
 # **BOOLEAN**
+$Foswiki::cfg{JQueryPlugin}{Plugins}{'UI::Sortable'}{Enabled} = 1;
+
+# **BOOLEAN**
 $Foswiki::cfg{JQueryPlugin}{Plugins}{'UI::Draggable'}{Enabled} = 1;
 
 # **BOOLEAN**
