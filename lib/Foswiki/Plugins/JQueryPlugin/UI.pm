@@ -29,10 +29,10 @@ sub new {
     my $this = bless(
         $class->SUPER::new(
             name         => 'UI',
-            version      => '1.8.23',
+            version      => '1.10.4',
             puburl       => '%PUBURLPATH%/%SYSTEMWEB%/JQueryPlugin/ui',
             author       => 'see http://jqueryui.com/about',
-            homepage     => 'http://docs.jquery.com/UI',
+            homepage     => 'http://api.jqueryui.com/',
             javascript   => [ 'jquery-ui.js', ],
             dependencies => [ 'metadata', 'livequery', 'easing' ],
         ),
@@ -63,7 +63,7 @@ sub init {
     my $langTag = $session->i18n->language();
     my $messagePath =
         $Foswiki::cfg{SystemWebName}
-      . '/JQueryPlugin/i18n/ui.datepicker-'
+      . '/JQueryPlugin/i18n/jquery.ui.datepicker-'
       . $langTag . '.js';
 
     my $messageFile = $Foswiki::cfg{PubDir} . '/' . $messagePath;
@@ -80,14 +80,12 @@ HERE
 __END__
 Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 
-Copyright (C) 2010 Foswiki Contributors. Foswiki Contributors
+Copyright (C) 2010-2015 Foswiki Contributors. Foswiki Contributors
 are listed in the AUTHORS file in the root of this distribution.
 NOTE: Please extend that file, not this notice.
 
 Additional copyrights apply to some or all of the code in this
 file as follows:
-
-Copyright (C) 2006-2011 Michael Daum http://michaeldaumconsulting.com
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License

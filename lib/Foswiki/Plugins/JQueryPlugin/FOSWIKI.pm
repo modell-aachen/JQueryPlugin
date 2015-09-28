@@ -5,6 +5,7 @@ use warnings;
 use Foswiki::Func;
 use Foswiki::Plugins;
 use Foswiki::Plugins::JQueryPlugin::Plugin;
+use JSON();
 our @ISA = qw( Foswiki::Plugins::JQueryPlugin::Plugin );
 
 =begin TML
@@ -29,7 +30,7 @@ sub new {
     my $this = bless(
         $class->SUPER::new(
             name       => 'Foswiki',
-            version    => '2.01',
+            version    => '2.02',
             author     => 'Michael Daum',
             homepage   => 'http://foswiki.org/Extensions/JQueryPlugin',
             javascript => ['jquery.foswiki.js'],
@@ -66,8 +67,7 @@ sub init {
         $prefs =
 'PUBURL, PUBURLPATH, SCRIPTSUFFIX, SCRIPTURL, SCRIPTURLPATH, SERVERTIME, SKIN, SYSTEMWEB, TOPIC, USERNAME, USERSWEB, WEB, WIKINAME, WIKIUSERNAME, NAMEFILTER';
         $prefs .= ', TWISTYANIMATIONSPEED'
-          if $Foswiki::cfg{Plugins}{TwistyPlugin}
-          {Enabled};    # can't use context during init
+          if $Foswiki::cfg{Plugins}{TwistyPlugin}{Enabled};
     }
 
     # init NAMEFILTER
@@ -77,15 +77,16 @@ sub init {
     }
 
     # add exported preferences to head
-    my @prefs = ();
+    my %prefs = ();
     foreach my $pref ( split( /\s*,\s*/, $prefs ) ) {
-        push @prefs,
-          '    "' . $pref . '": "%ENCODE{"%' . $pref . '%" type="quote"}%"';
+        $prefs{$pref} =
+          Foswiki::Func::expandCommonVariables( '%' . $pref . '%' );
     }
+
     my $text =
-"<script type='text/javascript'>\njQuery.extend(foswiki, {\n \"preferences\": {\n"
-      . join( ",\n", @prefs )
-      . "\n}});\n</script>";
+        "<script class='\$zone \$id foswikiPreferences' type='text/json'>"
+      . JSON::to_json( \%prefs, { pretty => 1 } )
+      . "</script>";
 
     Foswiki::Func::addToZone( "script", "JQUERYPLUGIN::FOSWIKI::PREFERENCES",
         $text, "JQUERYPLUGIN::FOSWIKI" );
@@ -93,18 +94,12 @@ sub init {
 
 1;
 __END__
-Author: Michael Daum, http://michaeldaumconsulting.com
 
 Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 
-Copyright (C) 2010 Foswiki Contributors. Foswiki Contributors
+Copyright (C) 2010-2015 Foswiki Contributors. Foswiki Contributors
 are listed in the AUTHORS file in the root of this distribution.
 NOTE: Please extend that file, not this notice.
-
-Additional copyrights apply to some or all of the code in this
-file as follows:
-
-Copyright (C) 2006-2010 Michael Daum http://michaeldaumconsulting.com
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License

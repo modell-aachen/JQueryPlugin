@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" date="1317206245" format="1.1" version="1"}%
+%META:TOPICINFO{author="ProjectContributor" comment="" date="1443077395" format="1.1" version="1"}%
 ---+!! %TOPIC%
 <!--
    * Set SHORTDESCRIPTION = jQuery <nop>JavaScript library for Foswiki
@@ -38,13 +38,12 @@ Whether writing your own plugins or writing Javascript code in topics, you shoul
 Foswiki %SYSTEMWEB%.JQueryCodingStandards.
 
 ---++ jQuery References and tutorials
-   * [[http://docs.jquery.com/How_jQuery_Works][Getting the feet wet]]
-   * [[http://docs.jquery.com/Tutorials][Tutorials]]
-   * [[http://docs.jquery.com/Main_Page][Reference API]]
+   * [[http://learn.jquery.com/about-jquery/how-jquery-works/][How jQuery Works]]
+   * [[http://http://learn.jquery.com/][jQuery Learning Center]]
+   * [[http://api.jquery.com/][jQuery API Documentatiom]]
    * [[http://jqapi.com][Alternative jQuery Documentation and API Browser]]
-   * [[http://docs.jquery.com/Using_jQuery_with_Other_Libraries][Using jQuery with other libraries]]
-   * [[http://docs.jquery.com/Plugins][Plugin repository]]
-   * [[http://www.learningjquery.com/2010/07/great-ways-to-learn-jquery][Great Ways to Learn jQuery]]
+   * [[http://learn.jquery.com/using-jquery-core/avoid-conflicts-other-libraries/][Avoiding Conflicts with Other Libraries]]
+   * [[http://plugins.jquery.com/][The jQuery Plugin Registry]]
 
 ---++ Macros
 
@@ -118,18 +117,55 @@ reduce bandwidth and speed up interactive performance.
 ---++ Installation Instructions
 %$INSTALL_INSTRUCTIONS%
 
-<blockquote class="foswikiHelp"> %X% For Foswiki versions before 1.1, this plugin requires the Foswiki:Extensions.ZonePlugin to be installed. The !ZonePlugin is *not* required for Foswiki 1.1 or later.</blockquote>
+<div class="foswikiHelp"> %X% For Foswiki versions before 1.1, this plugin requires the Foswiki:Extensions.ZonePlugin to be installed. The !ZonePlugin is *not* required for Foswiki 1.1 or later.</div>
 
----++ Plugin Info
-|  Author(s): | Michael Daum |
-|  Copyright: | 2007-2013 Michael Daum http://michaeldaumconsulting.com, and Foswiki contributors. |
-|  License: | GPL |
-|  Release: | %$RELEASE% |
-|  Version: | %$VERSION% |
-|  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|  22 Feb 2013: | (4.61) - Item12403: added support for checking jquery version, and versions of other plugins |
+---++ Dependencies
+%$DEPENDENCIES%
+
+---++ Change History
+|  24 Sep 2015: | (6.30) - reworked the way how preferences are propagated from backend to javascript not to use unsafe inline scripts anymore |
+|  04 Sep 2015: | (6.20) - improvements to jquery.wikiword, jquery.loader; adding html5-data capabilities to plugin initialization; added jquery-1.11.3 and jquery-2.1.4 |
+|  16 Jun 2015: | (6.13) - Item13460: JQICON fails to render !FontAwesome icons. |
+|  30 Apr 2015: | (6.11) - Item13389: datepicker initializaiton problem; datepicker z-index problem; pushy tooltips not hidden when typing into an input field; error in jquery.foswiki api getPubUrlPath |
+|  23 Feb 2015: | (6.10) - Item13272: upgraded superfish and hoverintent, deprecated subpersubs |
+|  12 Jan 2015: | (6.01) - Item13205: added jquery-1.11.2 and jquery-2.1.3 |
+|  29 Nov 2014: | (6.01) - Item13123: Add PLACEHOLDER parameter to JQueryAjaxHelper topic selector. |
+|  25 Sep 2014: | (6.00) - Item13030: deprecate jquery.tmpl; added jsrender and a template loader |
+|  06 Jun 2014: | (5.11) - Item12933: make filtered characters configurable in JQueryWikiWord |
+|  21 Feb 2014: | (5.10) - Item12734: added jQuery-1.11, jQuery-2.10, jquery-ui-1.10.4; \
+                           reverted patch to jquery.ui.tooltip; \
+                           reapplied patch to jquery.ui.draggable preventing hopping modal dialogs and such; \
+                           fix hopping position of hepler element in jquery.ui.sortable; \
+                           now defaulting to the latest jQuery version |
+|  11 Dec 2013: | (5.00) - new modules fontawesome, ui::spinner; \
+                           upgraded slimbox and media module; \
+                           improvements to =foswiki= theme for jquery-ui; \
+                           modernize button module; \
+                           fixed dependencies of wikiword module; \
+                           new =tmpl= REST handler to load jquery templates asynchronously |
+|  08 Nov 2013: | (4.91) - Release with Foswiki 1.1.9 \
+                  Item12650: Add config error for removed Themeswitcher plugin |
+|  23 Oct 2013: | (4.90) - Item12567: fix checking of version number in configure \
+                  Item12577: deprecate jquery-tooltip in favour of jquery-ui-tooltip \
+                  Item12596: improve documentation of jquery-ui \
+                  Item12583: revert version string to simple float not to break installation on RHEL and SLES \
+                  Item12599: use jQuery-1.9x (not 2.0.x) for IE9 \
+                  Item12600: various minor changes to jquery components |
+|  12 Oct 2013: | (4.83) - Item12567: fix version check in =configure= (not released) | 
+|  07 Jun 2013: | (4.82) - Item12528: fixed char mapping in jquery.wikiword |
+|  31 May 2013: | (4.81) - Item12520: added jquery-1.10.1 and jquery-2.0.2 |
+|  30 May 2013: | (4.80) - Item12519: upgraded superfish, supersubs and hoverintent |
+|  29 May 2013: | (4.70) - Item12345: added jquery-1.9.1, jquery-1.10.0, jquery-2.0.0, jquery-2.0.1; \
+                           removed themeswitcher as it isn't supported and non-functional anymore; \
+                           upgraded to jquery-ui-1.10.3; \
+                           upgraded form, rating, masonry, blockui, scrollto;\
+                           removed warning in configure about chilli |
 |  15 Jan 2013: | (4.60) - Item12345: added jquery-1.8.3, upgraded pnotify, masonry, scrollto, form, blockui, cycle |
 |  11 Dec 2012: | (4.50) - Item12229: improved transliteration of unicode characters in jquery.wikiword |
+|  28 Nov 2012: | (4.45) - Release with Foswiki 1.1.6 <br />\
+                  Item12192: Fix some layout issues<br />\
+                  Item12214: default jquery-ui theme overrides manual JQTHEME choice.<br />\
+                  Item12215: Hide JQLoader using CSS. |
 |  26 Oct 2012: | Item12195: Default jquery version is jquery-1.8.2 now |
 |  24 Oct 2012: | Item12190: Chili enabled by default,  warning demoted to a note. |
 |  17 Oct 2012: | (4.44) - Item12048: upgraded to jquery-ui-1.8.23; added jquery-1.8.2 |
@@ -223,7 +259,7 @@ reduce bandwidth and speed up interactive performance.
                   improved documentation; \
                   fixed IE error in treeview; \
                   added post method to async mode of treeview; \
-                  moved %CLEAR to %SYSTEM.DefaultPreferences |
+                  moved %CLEAR to %SYSTEM.%WIKIPREFSTOPIC% |
 |  28 May 2010: | (3.60) removed pointless TOGGLE module; \
                   reworked handling of =meta= tags by merging =foswikilibs.js= with =jquery.foswiki= module; \
                   fixed IE7 error with floats inside tabpanes; \
@@ -300,6 +336,13 @@ reduce bandwidth and speed up interactive performance.
 |  15 Nov 2007: | use skin independent way to add javascript files to header |
 |  10 Oct 2007: | upgraded to jQuery-1.1.4; compressed js and css |
 |  12 Jul 2007: | initial package containing jQuery-1.1.3.1 |
-|  Dependencies: | %$DEPENDENCIES% |
-|  Home: | Foswiki:Extensions/%TOPIC% |
-|  Support: | Foswiki:Support/%TOPIC% |
+
+%META:FORM{name="PackageForm"}%
+%META:FIELD{name="Author" title="Author" value="ProjectContributor"}%
+%META:FIELD{name="Version" title="Version" value="%25$VERSION%25"}%
+%META:FIELD{name="Release" title="Release" value="%25$RELEASE%25"}%
+%META:FIELD{name="Repository" title="Repository" value="https://github.com/foswiki/distro"}%
+%META:FIELD{name="Copyright" title="Copyright" value="2007-2015 Foswiki Contributors http://foswiki.org"}%
+%META:FIELD{name="License" title="License" value="GPL"}%
+%META:FIELD{name="Home" title="Home" value="Foswiki:Extensions/%25$ROOTMODULE%25"}%
+%META:FIELD{name="Support" title="Support" value="Foswiki:Support/%25$ROOTMODULE%25"}%

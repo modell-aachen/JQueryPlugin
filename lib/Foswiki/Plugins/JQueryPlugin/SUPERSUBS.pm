@@ -27,7 +27,7 @@ sub new {
     my $this = bless(
         $class->SUPER::new(
             name    => 'Supersubs',
-            version => '0.2b',
+            version => '0.3b',
             author  => 'Joel Birch',
             homepage =>
               'http://users.tpg.com.au/j_birch/plugins/superfish/#sample5',
@@ -44,14 +44,9 @@ sub new {
 __END__
 Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 
-Copyright (C) 2010 Foswiki Contributors. Foswiki Contributors
+Copyright (C) 2010-2015 Foswiki Contributors. Foswiki Contributors
 are listed in the AUTHORS file in the root of this distribution.
 NOTE: Please extend that file, not this notice.
-
-Additional copyrights apply to some or all of the code in this
-file as follows:
-
-Copyright (C) 2006-2010 Michael Daum http://michaeldaumconsulting.com
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
