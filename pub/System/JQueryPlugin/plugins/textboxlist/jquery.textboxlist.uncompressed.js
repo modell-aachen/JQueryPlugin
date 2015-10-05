@@ -129,7 +129,9 @@
       }
       if (val) {
         $.log("TEXTBOXLIST: closing suggestion list");
-        self.input.autocomplete("close");
+        if($(self.input).hasClass('jqInitedAutocomplete')) {
+            self.input.autocomplete("close");
+        }
         self.select(val);
         if (event.keyCode == 13) event.preventDefault();
         return false;
