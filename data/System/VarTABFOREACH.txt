@@ -6,6 +6,7 @@ This macro generates a set of TABPANE/TAB/ENDTAB/ENDTABPANE macros.
      %TABLE{sort="off"}%
      | *Parameter* | *Description* | *Default* |
      | (default) | comma-separated list of values. A tab will be generated for each value, and the tab's ID will be set to its value. | |
+     | =titles= | comma-separated list of titles, corresponding to the values given above. | |
      | =select= | value of tab to select | =1= |
      | =titleformat= | Format string for tab titles. See below for format tokens. | =$value= |
      | =format= | Format string for generating tab contents. See below for format tokens. | |
@@ -14,6 +15,7 @@ This macro generates a set of TABPANE/TAB/ENDTAB/ENDTABPANE macros.
      | *Token* | *Description* |
      | $value | The current value from the given list. |
      | $index | A numerical index for the current tab, counting from 1. |
+     | $title | The title from the =titles= parameter for the current tab. |
 
 %STOPINCLUDE%
 ---++ Related
