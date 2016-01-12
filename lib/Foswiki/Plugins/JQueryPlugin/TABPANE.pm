@@ -170,7 +170,8 @@ sub handleTabForEach {
     my @titles; @titles = split(/\s*,\s*/, $params->{titles}) if $params->{titles};
     my $idx = 1;
     my $out = $this->handleTabPane({ select => $params->{select} || 1, class => 'simple' });
-    my $titleformat = $params->{titleformat} || '$value';
+    my $titleformat = $params->{titleformat} || '$title';
+    my $urlformat = $params->{urlformat} || '';
     my $format = $params->{format} || '';
     for my $v (@values) {
         my $title = $titleformat;
@@ -178,9 +179,16 @@ sub handleTabForEach {
         $title =~ s/\$value\b/$v/g;
         $title =~ s/\$index\b/$idx/g;
         $title =~ s/\$title\b/$title_val/g;
+
+        my $url = $urlformat;
+        $url =~ s/\$value\b/$v/g;
+        $url =~ s/\$index\b/$idx/g;
+        $url =~ s/\$title\b/$title_val/g;
+
         $out .= $this->handleTab({
             _DEFAULT => Foswiki::Func::decodeFormatTokens($title),
             id => $v,
+            url => $url,
         });
         my $content = $format;
         $content =~ s/\$value\b/$v/g;

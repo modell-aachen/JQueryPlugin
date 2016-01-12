@@ -8,7 +8,8 @@ This macro generates a set of TABPANE/TAB/ENDTAB/ENDTABPANE macros.
      | (default) | comma-separated list of values. A tab will be generated for each value, and the tab's ID will be set to its value. | |
      | =titles= | comma-separated list of titles, corresponding to the values given above. | |
      | =select= | value of tab to select | =1= |
-     | =titleformat= | Format string for tab titles. See below for format tokens. | =$value= |
+     | =titleformat= | Format string for tab titles. See below for format tokens. | =$title= |
+     | =urlformat= | Format string for URL (that will be loaded asynchronously when a tab is opened). Leave empty to disable. | |
      | =format= | Format string for generating tab contents. See below for format tokens. | |
 ---++ Format tokens
      %TABLE{sort="off"}%
