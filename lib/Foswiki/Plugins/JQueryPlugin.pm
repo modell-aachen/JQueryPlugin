@@ -292,6 +292,20 @@ sub handleEndTabPane {
 
 =begin TML
 
+---++ handleTabForEach($session, $params, $topic, $web, $topicObject) -> $result
+
+Handles the =%<nop>TABFOREACH% tag.
+
+=cut
+
+sub handleTabForEach {
+    my $session = shift;
+
+    my $plugin = createPlugin( 'Tabpane', $session );
+    return $plugin->handleTabForEach(@_) if $plugin;
+    return '';
+}
+
 ---++ handleJQueryRequire($session, $params, $topic, $web) -> $result
 
 Handles the =%<nop>JQREQUIRE% tag. 
