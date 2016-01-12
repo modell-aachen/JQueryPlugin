@@ -177,7 +177,7 @@ sub handleTabForEach {
         my $title_val = shift(@titles) || $v;
         $title =~ s/\$value\b/$v/g;
         $title =~ s/\$index\b/$idx/g;
-        $title =~ s/\$title\b/$title_val/g/;
+        $title =~ s/\$title\b/$title_val/g;
         $out .= $this->handleTab({
             _DEFAULT => Foswiki::Func::decodeFormatTokens($title),
             id => $v,
@@ -185,7 +185,7 @@ sub handleTabForEach {
         my $content = $format;
         $content =~ s/\$value\b/$v/g;
         $content =~ s/\$index\b/$v/g;
-        $content =~ s/\$title\b/$title_val/g/;
+        $content =~ s/\$title\b/$title_val/g;
         $out .= $content . $this->handleEndTab;
         $idx++;
     }
