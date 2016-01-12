@@ -306,6 +306,8 @@ sub handleTabForEach {
     return '';
 }
 
+=begin TML
+
 ---++ handleJQueryRequire($session, $params, $topic, $web) -> $result
 
 Handles the =%<nop>JQREQUIRE% tag. 
