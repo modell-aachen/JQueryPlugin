@@ -186,7 +186,7 @@ sub handleTabForEach {
         $content =~ s/\$value\b/$v/g;
         $content =~ s/\$index\b/$v/g;
         $content =~ s/\$title\b/$title_val/g;
-        $out .= $content . $this->handleEndTab;
+        $out .= Foswiki::Func::decodeFormatTokens($content) . $this->handleEndTab;
         $idx++;
     }
     $out .= $this->handleEndTabPane;
