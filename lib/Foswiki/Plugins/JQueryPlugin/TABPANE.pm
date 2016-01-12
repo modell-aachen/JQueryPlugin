@@ -156,6 +156,39 @@ sub handleEndTabPane {
     return "</div><!-- //ENDTABPANE -->";
 }
 
+=begin TML
+
+---++ ClassMethod handleTabForEach ( $this, $params, $topic, $web, $topicObject ) -> $result
+
+Tag handler for =%<nop>TABFOREACH%=.
+
+=cut
+
+sub handleTabForEach {
+    my ($this, $params, $theTopic, $theWeb, $meta) = @_;
+    my @values = split(/\s*,\s*/, $params->{_DEFAULT});
+    my $idx = 1;
+    my $out = $this->handleTabPane({ select => $params->{select} || 1, class => 'simple' });
+    my $titleformat = $params->{titleformat} || '$value';
+    my $format = $params->{format} || '';
+    for my $v (@values) {
+        my $title = $titleformat;
+        $title =~ s/\$value\b/$v/g;
+        $title =~ s/\$index\b/$idx/g;
+        $out .= $this->handleTab({
+            _DEFAULT => Foswiki::Func::decodeFormatTokens($title),
+            id => $v,
+        });
+        my $content = $format;
+        $content =~ s/\$value\b/$v/g;
+        $content =~ s/\$index\b/$v/g;
+        $out .= $content . $this->handleEndTab;
+        $idx++;
+    }
+    $out .= $this->handleEndTabPane;
+    $out;
+}
+
 1;
 
 __END__
