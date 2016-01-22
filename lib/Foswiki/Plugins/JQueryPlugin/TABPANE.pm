@@ -173,7 +173,10 @@ sub handleTabForEach {
     my $titleformat = $params->{titleformat} || '$title';
     my $urlformat = $params->{urlformat} || '';
     my $format = $params->{format} || '';
+    my $exclude = $params->{exclude} || '';
+    my @excludes = split(/\s*,\s*/, $exclude);
     for my $v (@values) {
+        next if grep {/^$v$/} @excludes;
         my $title = $titleformat;
         my $title_val = shift(@titles) || $v;
         $title =~ s/\$value\b/$v/g;
