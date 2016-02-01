@@ -229,7 +229,7 @@ sub handleTabForEach {
         }) . $content . $this->handleEndTab;
         $idx++;
     }
-    return join(Foswiki::Func:;decodeFormatTokens($pdfseparator || "\n\n"), @out) if $render_pdf;
+    return join(Foswiki::Func::decodeFormatTokens($pdfseparator || "\n\n"), @out) if $render_pdf;
     push @out, $this->handleEndTabPane;
     join('', @out);
 }
