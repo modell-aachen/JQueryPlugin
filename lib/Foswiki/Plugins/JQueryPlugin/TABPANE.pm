@@ -170,6 +170,8 @@ sub handleTabForEach {
     my @titles; @titles = split(/\s*,\s*/, $params->{titles}) if $params->{titles};
     my $idx = 1;
     my $titleformat = $params->{titleformat} || '$title';
+    my $titlecase = $params->{titlecase};
+    $titlecase = 1 unless defined $titlecase;
     my $urlformat = $params->{urlformat} || '';
     my $format = $params->{format} || '';
     my $exclude = $params->{exclude} || '';
@@ -197,6 +199,7 @@ sub handleTabForEach {
 
         my $title = ($pdf) ? $pdftitleformat : $titleformat;
         my $title_val = shift(@titles) || $v;
+        $title_val =~ s/^(\w)/\u$1/ if $titlecase;
         $title =~ s/\$value\b/$v/g;
         $title =~ s/\$index\b/$idx/g;
         $title =~ s/\$title\b/$title_val/g;
