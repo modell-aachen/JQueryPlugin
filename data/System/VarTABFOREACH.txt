@@ -1,0 +1,29 @@
+%META:TOPICINFO{author="ProjectContributor" date="1434650530" format="1.1" version="1"}%
+%META:TOPICPARENT{name="Macros"}%
+---+ TABFOREACH -- tabpane widget with auto-generated tabs
+This macro generates a set of TABPANE/TAB/ENDTAB/ENDTABPANE macros.
+---++ Parameters
+     %TABLE{sort="off"}%
+     | *Parameter* | *Description* | *Default* |
+     | (default) | comma-separated list of values. A tab will be generated for each value, and the tab's ID will be set to its value. | |
+     | =titles= | comma-separated list of titles, corresponding to the values given above. | |
+     | =exclude= | comma-separated list of values to exclude from the output | |
+     | =select= | value of tab to select | =1= |
+     | =titleformat= | Format string for tab titles. See below for format tokens. | =$title= |
+     | =urlformat= | Format string for URL (that will be loaded asynchronously when a tab is opened). Leave empty to disable. | |
+     | =format= | Format string for generating tab contents. See below for format tokens. | |
+     | =pdfview= | Output mode for PDF generation; =first= to render only contents of first tab; =hide= to render nothing; =id:foo= to render tab for value =foo=. | =first= |
+     | =pdftitleformat= | Format string to use for rendering the title for each value (e.g. for rendering headings). | |
+     | =pdfformat= | Format string to use for rendering the content for each value (use this to complement urlformat which doesn't work in PDF generation). If not given, the =content= format string is used. | |
+     | =pdfseparator= | Format string to use to separate results in the output. | (paragraph) |
+---++ Format tokens
+     %TABLE{sort="off"}%
+     | *Token* | *Description* |
+     | $value | The current value from the given list. |
+     | $index | A numerical index for the current tab, counting from 1. |
+     | $title | The title from the =titles= parameter for the current tab. |
+
+%STOPINCLUDE%
+---++ Related
+ [[VarTABPANE][TABPANE]], [[VarTAB][TAB]], [[VarENDTAB][ENDTAB]], [[!VarENDTABPANE][ENDTABPANE]], JQueryPlugin, JQueryTabpane
+<!--%JQREQUIRE{"chili"}%-->

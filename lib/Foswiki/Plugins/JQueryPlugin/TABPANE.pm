@@ -156,6 +156,87 @@ sub handleEndTabPane {
     return "</div><!-- //ENDTABPANE -->";
 }
 
+=begin TML
+
+---++ ClassMethod handleTabForEach ( $this, $params, $topic, $web, $topicObject ) -> $result
+
+Tag handler for =%<nop>TABFOREACH%=.
+
+=cut
+
+sub handleTabForEach {
+    my ($this, $params, $theTopic, $theWeb, $meta) = @_;
+    my @values = split(/\s*,\s*/, $params->{_DEFAULT});
+    my @titles; @titles = split(/\s*,\s*/, $params->{titles}) if $params->{titles};
+    my $idx = 1;
+    my $titleformat = $params->{titleformat} || '$title';
+    my $titlecase = $params->{titlecase};
+    $titlecase = 1 unless defined $titlecase;
+    my $urlformat = $params->{urlformat} || '';
+    my $format = $params->{format} || '';
+    my $exclude = $params->{exclude} || '';
+    my @excludes = split(/\s*,\s*/, $exclude);
+
+    my $session = $Foswiki::Plugins::SESSION;
+    my $request = $session->{request};
+    my $content_type = $request->param('contenttype');
+    my $pdf = defined($content_type) && $content_type =~ /pdf/;
+
+    my $pdfview = $params->{pdfview} || 'first';
+    my $pdftitleformat = $params->{pdftitleformat} || '';
+    my $pdfformat = $params->{pdfformat};
+    my $pdfseparator = $params->{pdfseparator};
+    my $render_pdf = $pdf && ($pdfview || $pdftitleformat || $pdfformat || $pdfseparator);
+
+    my @out = $this->handleTabPane({ select => $params->{select} || 1, class => 'simple' });
+    @out = () if $render_pdf;
+
+    for my $v (@values) {
+        if (grep {/^$v$/} @excludes) {
+            shift (@titles);
+            next;
+        }
+
+        my $title = ($pdf) ? $pdftitleformat : $titleformat;
+        my $title_val = shift(@titles) || $v;
+        $title_val =~ s/^(\w)/\u$1/ if $titlecase;
+        $title =~ s/\$value\b/$v/g;
+        $title =~ s/\$index\b/$idx/g;
+        $title =~ s/\$title\b/$title_val/g;
+        $title = Foswiki::Func::decodeFormatTokens($title);
+
+        my $content = ($pdf && $pdfformat) ? $pdfformat : $format;
+        $content =~ s/\$value\b/$v/g;
+        $content =~ s/\$index\b/$idx/g;
+        $content =~ s/\$title\b/$title_val/g;
+        $content = Foswiki::Func::decodeFormatTokens($content);
+
+        if ($render_pdf) {
+            return '' if $pdfview eq 'hide';
+            next if $pdfview =~ /^id:(.*)$/ && $1 ne $v;
+            push @out, "$title$content";
+            last if $pdfview eq 'first';
+            $idx++;
+            next;
+        }
+
+        my $url = $urlformat;
+        $url =~ s/\$value\b/$v/g;
+        $url =~ s/\$index\b/$idx/g;
+        $url =~ s/\$title\b/$title_val/g;
+
+        push @out, $this->handleTab({
+            _DEFAULT => $title,
+            id => $v,
+            url => $url,
+        }) . $content . $this->handleEndTab;
+        $idx++;
+    }
+    return join(Foswiki::Func::decodeFormatTokens($pdfseparator || "\n\n"), @out) if $render_pdf;
+    push @out, $this->handleEndTabPane;
+    join('', @out);
+}
+
 1;
 
 __END__

@@ -62,6 +62,7 @@ sub initPlugin {
     Foswiki::Func::registerTagHandler( 'ENDTABPANE', \&handleEndTabPane );
     Foswiki::Func::registerTagHandler( 'TAB',        \&handleTab );
     Foswiki::Func::registerTagHandler( 'ENDTAB',     \&handleEndTab );
+    Foswiki::Func::registerTagHandler( 'TABFOREACH', \&handleTabForEach );
 
     # jquery.button
     Foswiki::Func::registerTagHandler( 'BUTTON', \&handleButton );
@@ -286,6 +287,22 @@ sub handleEndTabPane {
 
     my $plugin = createPlugin( 'Tabpane', $session );
     return $plugin->handleEndTabPane(@_) if $plugin;
+    return '';
+}
+
+=begin TML
+
+---++ handleTabForEach($session, $params, $topic, $web, $topicObject) -> $result
+
+Handles the =%<nop>TABFOREACH% tag.
+
+=cut
+
+sub handleTabForEach {
+    my $session = shift;
+
+    my $plugin = createPlugin( 'Tabpane', $session );
+    return $plugin->handleTabForEach(@_) if $plugin;
     return '';
 }
 

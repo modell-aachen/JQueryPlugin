@@ -32,3 +32,4 @@ Easy cookie handling using jQuery.
    * domain: the value of the domain attribute of the cookie (default: domain of page that created the cookie).
    * secure: if true, the secure attribute of the cookie will be set and the cookie transmission will
      require a secure protocol (like HTTPS).
+
