@@ -65,6 +65,7 @@ data/System/VarJQPLUGINS.txt 0644
 data/System/VarJQREQUIRE.txt 0644
 data/System/VarJQTHEME.txt 0644
 data/System/VarPOPUPWINDOW.txt 0644
+data/System/VarTABFOREACH.txt 0644
 data/System/VarTABPANE.txt 0644
 data/System/VarTAB.txt 0644
 lib/Foswiki/Configure/Checkers/JQueryPlugin/JQueryVersion.pm 0644

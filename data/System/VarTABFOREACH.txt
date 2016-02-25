@@ -12,7 +12,7 @@ This macro generates a set of TABPANE/TAB/ENDTAB/ENDTABPANE macros.
      | =titleformat= | Format string for tab titles. See below for format tokens. | =$title= |
      | =urlformat= | Format string for URL (that will be loaded asynchronously when a tab is opened). Leave empty to disable. | |
      | =format= | Format string for generating tab contents. See below for format tokens. | |
-     | =pdfview= | Output mode for PDF generation; =first= to render only contents of first tab; =hide= to render nothing; =id:foo= to render tab for value =foo=. | =first= |
+     | =pdfview= | Output mode for PDF generation; =first= to render only contents of first tab; =hide= to render nothing; =id:foo= to render tab for value =foo=; =any= or =all= to render contents of all tabs. | =first= |
      | =pdftitleformat= | Format string to use for rendering the title for each value (e.g. for rendering headings). | |
      | =pdfformat= | Format string to use for rendering the content for each value (use this to complement urlformat which doesn't work in PDF generation). If not given, the =content= format string is used. | |
      | =pdfseparator= | Format string to use to separate results in the output. | (paragraph) |
