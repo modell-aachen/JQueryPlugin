@@ -96,6 +96,7 @@ sub getOptions {
         # Item10889: Coming from an "Warning! Confirmation required", often
         # there's an undef item (the, last, empty, one, <-- here)
         if ( defined $item ) {
+            $item =~ s/^\s+|\s+$//;
             foreach my $value ( split( /\s*,\s*/, $item ) ) {
                 push @values, $value if defined $value;
             }
