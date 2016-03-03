@@ -1,0 +1,26 @@
+%META:TOPICINFO{author="ProjectContributor" date="1434650530" format="1.1" version="1"}%
+%META:TOPICPARENT{name="Macros"}%
+---+ PAGINATOR -- Paging widget with auto-generated pages
+This macro generates pages mainly for Solr data. The Ajax respond would be added to the Page directly.
+The parameters 'pageSize' and 'pageNumber' would be send via the ajax call. 'pageNumber' starts with 0.
+---++ Parameters
+     %TABLE{sort="off"}%
+     | *Parameter* | *Description* | *Default* |
+     | (default) | comma-separated list of values. A tab will be generated for each value, and the tab's ID will be set to its value. | |
+     | =url= | can be the complete ajax request without pageNumber and pageSize | %SCRIPTURL{rest}%/RenderPlugin/template |
+     | =data= | Only used when no URL is given. JSON formated string for additional parameter. | |
+     | =topic= | Only used when no URL is given. Format string for topic parameter. | |
+     | =name= | Only used when no URL is given. Format string for name parameter. |  |
+     | =expand= | Only used when no URL is given. Format string for expand parameter. | |
+     | =perpage= | Number how many entries will be shown on one page | 20 |
+     | =total= | Mandatory numerical value of total entries | |
+     | =sort= | comma-separated list of values. Each value is the value for ajax, when the column with the same index should be sorted. | |
+
+---++ Example
+<verbatim>
+%TAB{"%MAKETEXT{"All pages"}%" id="5"}%%PAGINATOR{topic="%WEB%.%TOPIC%" name="%TOPIC%View" expand="searchWorkflowPagesData" perpage="10" total="%SOLRSEARCH{"process_state_s:* type:topic -topic:Web*" web="%WEB%" format="$count" rows="1"}%"}%%ENDTAB%
+</verbatim>
+%STOPINCLUDE%
+---++ Related
+ [[VarTABPANE][TABPANE]], JQueryPlugin, JQueryTabpane
+<!--%JQREQUIRE{"chili"}%-->

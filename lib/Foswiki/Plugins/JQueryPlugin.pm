@@ -70,6 +70,7 @@ sub initPlugin {
     # jquery.popupwindow
     Foswiki::Func::registerTagHandler( 'POPUPWINDOW', \&handlePopUpWindow );
 
+    Foswiki::Func::registerTagHandler( 'PAGINATOR', \&handlePaginator );
     # init plugin handler and preload default plugins
     Foswiki::Plugins::JQueryPlugin::Plugins::init();
 
@@ -303,6 +304,22 @@ sub handleTabForEach {
 
     my $plugin = createPlugin( 'Tabpane', $session );
     return $plugin->handleTabForEach(@_) if $plugin;
+    return '';
+}
+
+=begin TML
+
+---++ handlePaginator($session, $params, $topic, $web, $topicObject) -> $result
+
+Handles the =%<nop>PAGINATOR% tag.
+
+=cut
+
+sub handlePaginator {
+    my $session = shift;
+
+    my $plugin = createPlugin( 'Paginator', $session );
+    return $plugin->handlePaginator(@_) if $plugin;
     return '';
 }
 
