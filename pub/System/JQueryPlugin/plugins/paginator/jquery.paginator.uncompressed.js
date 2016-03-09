@@ -1128,9 +1128,9 @@
 
 (function($) {
     $.sort = function(target) {
-        var map = $('div.jqPaginator').data('sort').split(",");
         var targetclass = "." +target.closest('.responseData')
                             .attr('class').match(/\page_\d+/);
+        var map = $('div.jqPaginator' + targetclass).data('sort').split(",");
         var index = target.parent().children().index(target);
         var direction = " desc";
         var sortList = [index +1,'headerSortUp'];
