@@ -229,6 +229,8 @@ sub handleTabForEach {
             _DEFAULT => $title,
             id => $v,
             url => $url,
+            before => '$.blockUI()',
+            afterload => '$.unblockUI()'
         }) . $content . $this->handleEndTab;
         $idx++;
     }
