@@ -1169,15 +1169,14 @@
                     done(response);
                 }
             },
-            formatResult: function(data) {
-            },
             locator: 'nolocator',
             totalNumber: total,
             ulClassName: 'pagination',
             pageSize: limit,
             callback: function(data, pagination){
                 if( sortList ) {
-                    $(targetclass + ' th:nth-child('+sortList[0]+')').addClass(sortList[1]);
+                    $(targetclass + ' th:nth-child('+sortList[0]+')')
+                                            .addClass(sortList[1] + ' header');
                 }
             }
         })
