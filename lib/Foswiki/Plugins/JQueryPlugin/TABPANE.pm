@@ -87,6 +87,7 @@ sub handleTab {
     my $theName          = $params->{_DEFAULT}  || $params->{name} || 'Tab';
     my $beforeHandler    = $params->{before}    || '';
     my $afterHandler     = $params->{after}     || '';
+    my $beforeLoadHandler = $params->{beforeload} || '';
     my $afterLoadHandler = $params->{afterload} || '';
     my $url              = $params->{url}       || '';
     my $container        = $params->{container} || '';
@@ -107,6 +108,12 @@ sub handleTab {
         #    $afterHandler =~ s/'/\\'/go;
         push @metaData,
           "afterHandler: function(oldTabId, newTabId) {$afterHandler}";
+    }
+    if ($beforeLoadHandler) {
+
+        #    $beforeLoadHandler =~ s/'/\\'/go;
+        push @metaData,
+          "beforeLoadHandler: function(oldTabId, newTabId) {$beforeLoadHandler}";
     }
     if ($afterLoadHandler) {
 
@@ -229,7 +236,7 @@ sub handleTabForEach {
             _DEFAULT => $title,
             id => $v,
             url => $url,
-            before => '$.blockUI()',
+            beforeload => '$.blockUI()',
             afterload => '$.unblockUI()'
         }) . $content . $this->handleEndTab;
         $idx++;

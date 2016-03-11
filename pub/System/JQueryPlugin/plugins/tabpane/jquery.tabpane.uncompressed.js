@@ -134,6 +134,12 @@ $.tabpane = {
       data.beforeHandler.call(this, oldTabId, newTabId);
     }
 
+    if (typeof(data.url) != "undefined") {
+      if (typeof(data.beforeLoadHandler) == "function") {
+        data.beforeLoadHandler.call(this, oldTabId, newTabId);
+      }
+    }
+
     if ((thisOpts.animate || thisOpts.autoMaxExpand) && oldHeight > 0) {
       //$.log("TABPANE: setting height to "+oldHeight);
       $newContainer.height(oldHeight);
