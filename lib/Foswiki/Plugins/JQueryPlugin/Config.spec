@@ -142,6 +142,9 @@ $Foswiki::cfg{JQueryPlugin}{Plugins}{MouseWheel}{Enabled} = 1;
 # **BOOLEAN LABEL="Placeholder"**
 $Foswiki::cfg{JQueryPlugin}{Plugins}{Placeholder}{Enabled} = 1;
 
+# **BOOLEAN LABEL="Paginator"**
+$Foswiki::cfg{JQueryPlugin}{Plugins}{Paginator}{Enabled} = 1;
+
 # **BOOLEAN LABEL="PNotify"**
 $Foswiki::cfg{JQueryPlugin}{Plugins}{PNotify}{Enabled} = 1;
 
