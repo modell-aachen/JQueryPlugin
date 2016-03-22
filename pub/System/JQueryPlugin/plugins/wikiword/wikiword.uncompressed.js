@@ -235,7 +235,7 @@ $.wikiword = {
     }
 
     // capitalize each individual word
-    result = result.replace(opts.allowedRegex, function(a) {
+    result = result.replace(new RegExp(opts.allowedRegex,'g'), function(a) {
         return a.charAt(0).toLocaleUpperCase() + a.substr(1);
     });
 
