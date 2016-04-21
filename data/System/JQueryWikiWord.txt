@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-%META:TOPICINFO{author="ProjectContributor" date="1402036889" format="1.1" version="1"}%
-||||||| merged common ancestors
-%META:TOPICINFO{author="ProjectContributor" date="1272460160" format="1.1" rev="4" version="1"}%
-=======
 %META:TOPICINFO{author="ProjectContributor" date="1438699584" format="1.1" version="1"}%
->>>>>>> foswiki/master
 %META:TOPICPARENT{name="JQueryPlugin"}%
 ---+ %TOPIC%
 %JQPLUGINS{"wikiword"
