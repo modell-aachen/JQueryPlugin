@@ -220,7 +220,7 @@ sub handleTabForEach {
 
         if ($render_pdf) {
             return '' if $pdfview eq 'hide';
-            next if $pdfview =~ /^id:(.*)$/ && $1 ne $v;
+            next if $pdfview =~ /^id:([^,]+)/ && $1 ne $v;
             push @out, "$title$content";
             last if $pdfview eq 'first';
             $idx++;
