@@ -1088,6 +1088,6 @@ jQuery.wikiword.downgradeMap = {
   "鼓": "Gu ",    "鼠": "Shu ",   "鼻": "Bi ",    "齐": "Qi ",    "齿": "Chi ",   "龄": "Ling ",  "龙": "Long ",  "龟": "Gui ",
 
   // Symbols
-  '©':'(c)',
-  '®':'(r)'
+  '©':'c',
+  '®':'r'
 };

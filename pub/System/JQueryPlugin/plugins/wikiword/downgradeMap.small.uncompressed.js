@@ -57,6 +57,6 @@ jQuery.wikiword.downgradeMap = {
       'Ķ':'k', 'Ļ':'L', 'Ņ':'N', 'Š':'S', 'Ū':'u', 'Ž':'Z',
 
       // Symbols
-      '©':'(c)',
-      '®':'(r)'
+      '©':'c',
+      '®':'r'
 };
