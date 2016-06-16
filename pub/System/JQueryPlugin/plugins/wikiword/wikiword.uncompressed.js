@@ -46,7 +46,18 @@ $.wikiword = {
         $source = thisOpts.source;
       }
 
-      // generate RegExp for filtered chars
+      $.wikiword.buildRegex(thisOpts);
+
+      $source.change(function() {
+        $.wikiword.handleChange($source, $this, thisOpts);
+      }).keyup(function() {
+        $.wikiword.handleChange($source, $this, thisOpts);
+      }).change();
+    });
+  },
+
+  // generate RegExp for filtered chars
+  buildRegex: function (thisOpts) {
       if (typeof(thisOpts.allow) !== 'undefined') {
         thisOpts.allowedRegex = new RegExp('['+thisOpts.allow+']+', "g");
         thisOpts.forbiddenRegex = new RegExp('[^'+thisOpts.allow+']+', "g");
@@ -57,13 +68,6 @@ $.wikiword = {
       if (typeof(thisOpts.forbiddenRegex) === 'string') {
         thisOpts.forbiddenRegex = new RegExp(thisOpts.forbiddenRegex, "g");
       }
-
-      $source.change(function() {
-        $.wikiword.handleChange($source, $this, thisOpts);
-      }).keyup(function() {
-        $.wikiword.handleChange($source, $this, thisOpts);
-      }).change();
-    });
   },
 
   // gets the start/end of the selection, even in IE8
@@ -200,7 +204,10 @@ $.wikiword = {
    * convert a source string to a valid WikiWord
    */
   wikify: function (source, opts) {
-      return $.wikiword.wikifySelection(source, opts).result;
+      var thisOpts = $.extend({}, $.wikiword.defaults, opts);
+      $.wikiword.buildRegex(thisOpts);
+
+      return $.wikiword.wikifySelection(source, thisOpts).result;
   },
 
   /***************************************************************************
@@ -351,6 +358,6 @@ jQuery.wikiword.downgradeMap = {
       'Ķ':'k', 'Ļ':'L', 'Ņ':'N', 'Š':'S', 'Ū':'u', 'Ž':'Z',
 
       // Symbols
-      '©':'(c)',
-      '®':'(r)'
+      '©':'c',
+      '®':'r'
 };
