@@ -21,7 +21,7 @@ $.tabpane = {
   build: function(options) {
     // build main options before element iteration
     var opts = $.extend({}, $.tabpane.defaults, options), prevHash;
-   
+
     // iterate and reformat each matched element
     return this.each(function() {
       var $thisPane = $(this),
@@ -74,7 +74,7 @@ $.tabpane = {
           index++;
         });
 
-        
+
         /* establish auto max expand */
         if (thisOpts.autoMaxExpand) {
           $.tabpane.autoMaxExpand($thisPane, thisOpts);
@@ -86,7 +86,7 @@ $.tabpane = {
 
           if (newTabId != thisOpts.currentTabId) {
             $.tabpane.switchTab($thisPane, thisOpts, newTabId);
-            
+
             // set hash
             var newHash = $("#"+newTabId).data("hash"), oldHash = window.location.hash.replace(/^.*#/, "");
             if (newHash != oldHash) {
@@ -148,9 +148,9 @@ $.tabpane = {
     if(typeof(data.container) != "undefined") {
       $innerContainer = $newContainer.find(data.container);
       if ($innerContainer.length) {
-	isInnerContainer = true;
+        isInnerContainer = true;
       } else {
-	$innerContainer = $newContainer;
+        $innerContainer = $newContainer;
       }
     }
 
@@ -195,7 +195,7 @@ $.tabpane = {
           }
         }
       }
-      
+
       // after click handler
       if (typeof(data.afterHandler) == "function") {
         //jQuery.log("exec "+data.afterHandler);
@@ -205,20 +205,16 @@ $.tabpane = {
       thisOpts.currentTabId = newTabId;
     }
 
+    _finally();
     // async loader
     if (typeof(data.url) != "undefined") {
       $innerContainer.load(data.url, undefined, function(response, status, xhr) {
         if (typeof(data.afterLoadHandler) == "function") {
-          //jQuery.log("after load handler "+command);
           data.afterLoadHandler.call(this, oldTabId, newTabId);
         }
-        _finally();
       });
       delete thisOpts[newTabId].url;
-    } else {
-      _finally();
     }
-    
 
   },
 

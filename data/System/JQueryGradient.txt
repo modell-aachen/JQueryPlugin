@@ -59,3 +59,4 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ornare frin
 <div class="jqGradient {from: 'f9f9f9', to: 'dddddd', length:10, position:'bottom'}" style="width:300px;padding:10px 10px 20px 10px;border:1px solid #aaa; background:f9f9f9">
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ornare fringilla est, eget condimentum quam auctor quis. Curabitur vitae nibh eu nisl scelerisque facilisis. Vestibulum posuere pretium magna, eu pulvinar libero cursus in. Phasellus tortor dui, viverra vitae molestie a, aliquam quis risus. Mauris fringilla mattis ligula, et laoreet dui rhoncus vel. Aliquam bibendum, nisi nec pellentesque convallis, augue elit rutrum sapien, nec molestie augue mauris et tellus. 
 </div>
+

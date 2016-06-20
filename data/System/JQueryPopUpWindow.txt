@@ -18,3 +18,4 @@ Open a page in a new window.
 
 
 %JQREQUIRE{"popupwindow"}%
+

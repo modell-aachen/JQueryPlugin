@@ -40,3 +40,4 @@ To define a !PaletteForm with 4 colors.
 %JQREQUIRE{"farbtastic"}%
 
 <input type="text" id="color" name="color" value="#123456" class="jqFarbtastic" />
+

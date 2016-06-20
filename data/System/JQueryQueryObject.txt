@@ -49,3 +49,4 @@ var emptyQuery = $.query.empty();
 var stillTheSame = $.query.copy();
 > ?action=view&section=info&id=123
 </verbatim>
+

@@ -17,3 +17,4 @@ Simple jQuery logger / debugger using firebug's console or a div of its own of t
    * =$.log("message");=: will send the message to the console
    * =$.log(object);=: will stringify the object
    * =$("<selector>").debug();= will stringify the found objects
+

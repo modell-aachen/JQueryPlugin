@@ -41,3 +41,4 @@ input[type="text"]:focus {
 	color:black;
 }
 </style>
+

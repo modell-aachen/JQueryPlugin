@@ -19,3 +19,4 @@ JQueryScrollTo is used for the animation.
 
 ---++ Examples
 %JQREQUIRE{"localscroll"}%
+
