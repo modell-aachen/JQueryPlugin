@@ -1172,6 +1172,8 @@
             locator: 'nolocator',
             totalNumber: total,
             ulClassName: 'pagination',
+            prevText: ''+settings.data('prevtext'),
+            nextText: ''+settings.data('nexttext'),
             pageSize: limit,
             callback: function(data, pagination){
                 if( sortList ) {
