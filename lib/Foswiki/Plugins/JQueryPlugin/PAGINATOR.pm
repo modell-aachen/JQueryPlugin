@@ -61,8 +61,8 @@ sub handlePaginator {
                    "data-expand=\"$params->{expand}\"";
         $getData .= "data-data=\"$params->{data}\"";
     }
-    my $nextText  = $params->{nexttext} || Foswiki::Func::expandTemplate("PagerNext");
-    my $prevText  = $params->{prevtext} || Foswiki::Func::expandTemplate("PagerPrev");
+    my $nextText  = $params->{nexttext} || Foswiki::Func::expandTemplate("PagerNext") || "&#187;";
+    my $prevText  = $params->{prevtext} || Foswiki::Func::expandTemplate("PagerPrev") || "&#171;";
     my $perPage   = $params->{perpage} || 20;
     my $total     = $params->{total}   || 0;
     my $sort      = "";
