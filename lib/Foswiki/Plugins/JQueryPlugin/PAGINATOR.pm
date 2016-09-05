@@ -61,6 +61,8 @@ sub handlePaginator {
                    "data-expand=\"$params->{expand}\"";
         $getData .= "data-data=\"$params->{data}\"";
     }
+    my $nextText  = $params->{nexttext} || Foswiki::Func::expandTemplate("PagerNext") || "&#187;";
+    my $prevText  = $params->{prevtext} || Foswiki::Func::expandTemplate("PagerPrev") || "&#171;";
     my $perPage   = $params->{perpage} || 20;
     my $total     = $params->{total}   || 0;
     my $sort      = "";
@@ -71,7 +73,7 @@ sub handlePaginator {
     return
         "<div class=\"responseData $randClass\"></div><div class=\"renderPagination $randClass\"></div>" .
         "<div class=\"jqPaginator $randClass\" data-total=\"$total\" data-perPage=\"$perPage\" data-url=\"$url\"".
-        " $getData $sort></div>";
+        " data-prevtext=\"$prevText\" data-nexttext=\"$nextText\" $getData $sort></div>";
 }
 
 1;

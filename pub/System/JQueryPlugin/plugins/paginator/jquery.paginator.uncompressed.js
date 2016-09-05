@@ -65,7 +65,11 @@
                 self.parseDataSource(attributes.dataSource, function(dataSource) {
 
                     // Whether pagination is sync mode
-                    self.sync = Helpers.isArray(dataSource);
+                    self.skipAjax = typeof attributes.skipAjax === "undefined" ? false : attributes.skipAjax;
+                    if(self.skipAjax)
+                        self.sync = false;
+                    else
+                        self.sync = Helpers.isArray(dataSource);
                     if (self.sync) {
                         model.totalNumber = attributes.totalNumber = dataSource.length;
                     }
@@ -364,7 +368,7 @@
                 if (!pageNumber || pageNumber < 1 || pageNumber > totalPage) return;
 
                 // Sync mode
-                if (self.sync) {
+                if (self.sync || self.skipAjax) {
                     render(self.getDataSegment(pageNumber));
                     return;
                 }
@@ -1172,6 +1176,8 @@
             locator: 'nolocator',
             totalNumber: total,
             ulClassName: 'pagination',
+            prevText: ''+settings.data('prevtext'),
+            nextText: ''+settings.data('nexttext'),
             pageSize: limit,
             callback: function(data, pagination){
                 if( sortList ) {
