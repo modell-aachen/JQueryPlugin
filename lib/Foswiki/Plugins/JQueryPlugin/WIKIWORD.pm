@@ -31,7 +31,7 @@ sub new {
             version    => '3.20',
             author     => 'Michael Daum',
             homepage   => 'http://foswiki.org/Extensions/JQueryPlugin',
-            javascript => ['transliterate.js','wikiword.js'],
+            javascript => ['wikiword.js'],
             dependencies =>
               [ 'JQUERYPLUGIN', 'FOSWIKI', 'livequery', 'metadata' ]
         ),
