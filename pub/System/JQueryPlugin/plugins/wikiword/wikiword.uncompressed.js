@@ -29,7 +29,7 @@ $.wikiword = {
         source: options
       };
     }
-   
+
     // build main options before element iteration
     opts = $.extend({}, $.wikiword.defaults, options);
 
