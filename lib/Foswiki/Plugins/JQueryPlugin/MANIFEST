@@ -804,6 +804,9 @@ pub/System/JQueryPlugin/plugins/wikiword/wikiword.uncompressed.js 0644
 pub/System/JQueryPlugin/plugins/wikiword/downgradeMap.small.uncompressed.js 0644
 pub/System/JQueryPlugin/plugins/wikiword/downgradeMap.uncompressed.js 0644
 pub/System/JQueryPlugin/plugins/wikiword/jquery.wikiword.uncompressed.js 0644
+pub/System/JQueryPlugin/plugins/wikiword/transliterate.uncompressed.js 0644
+pub/System/JQueryPlugin/plugins/wikiword/transliterate.js 0644
+pub/System/JQueryPlugin/plugins/wikiword/transliterate.js.gz 0644
 pub/System/JQueryPlugin/plugins/wikiword/Makefile 0644
 pub/System/JQueryPlugin/themes/base/images/animated-overlay.gif 0644
 pub/System/JQueryPlugin/themes/base/images/ui-bg_flat_0_aaaaaa_40x100.png 0644
