@@ -13,6 +13,8 @@
  * plugin definition 
  */
 (function($) {
+transl.config({ replace: [['ä', 'ae'],['ö', 'oe'],['ü', 'ue'],
+                          ['Ä', 'Ae'],['Ö', 'Oe'],['Ü', 'Ue']] });
 $.wikiword = {
 
   downgradeMap: {},
