@@ -13,6 +13,8 @@
  * plugin definition 
  */
 (function($) {
+transl.config({ replace: [['ä', 'ae'],['ö', 'oe'],['ü', 'ue'],
+                          ['Ä', 'Ae'],['Ö', 'Oe'],['Ü', 'Ue']] });
 $.wikiword = {
 
   downgradeMap: {},
@@ -29,7 +31,7 @@ $.wikiword = {
         source: options
       };
     }
-   
+
     // build main options before element iteration
     opts = $.extend({}, $.wikiword.defaults, options);
 
@@ -224,19 +226,22 @@ $.wikiword = {
 
     // transliterate unicode chars
     if (opts.transliterate) {
-      for (i = 0; i < source.length; i++) {
-        c = source[i];
-        var downgraded = $.wikiword.downgradeMap[c] || c;
-        result += downgraded;
-        if(downgraded.length != 1) {
-          if(i <= selectionStart) {
-              selectionStart += downgraded.length -1;
-          }
-          if(i <= selectionEnd) {
-              selectionEnd += downgraded.length -1;
-          }
-        }
-      }
+      result = transl(source);
+
+      /* Unfortunately the transliteration module does not provide any
+         function to map selection indices for transliterations.
+         Therefore we have to update the indices ourselves
+      */
+      var preSelectionString = source.substr(0, selectionStart);
+      var preSelectionDiff = transl(preSelectionString).length - preSelectionString.length;
+
+      var selectionString = source.substring(selectionStart, selectionEnd);
+      var selectionDiff = transl(selectionString).length - selectionString.length;
+
+      // Start shifts by the growth of the preselection string
+      selectionStart += preSelectionDiff;
+      // End shifts by the growth of the preselection + selection strings
+      selectionEnd += preSelectionDiff + selectionDiff;
     } else {
       result = source;
     }
