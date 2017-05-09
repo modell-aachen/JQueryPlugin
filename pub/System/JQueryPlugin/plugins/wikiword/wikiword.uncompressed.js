@@ -15,15 +15,39 @@
 (function($) {
 transl.config({ replace: [['ä', 'ae'],['ö', 'oe'],['ü', 'ue'],
                           ['Ä', 'Ae'],['Ö', 'Oe'],['Ü', 'Ue']] });
-$.wikiword = {
 
-  downgradeMap: {},
+var doPolyfill = true; // Do we still need to handle polyfill?
+
+// Wrapper for transl (transliteration package).
+// Will catch any exceptions, so we do not crash other scripts.
+function doTransliterate(string) {
+  try {
+    return transl(string);
+  } catch (err) {
+    if (window.console && console.log) {
+      console.log(err);
+    }
+    return string;
+  }
+}
+
+$.wikiword = {
 
   /***********************************************************************
    * constructor
    */
   build: function(options) {
     var opts;
+
+    // Lazy-load polyfill if we have not done so already.
+    // This is slower for IE, but does not affect modern browsers.
+    // Polyfill package: https://babeljs.io/docs/usage/polyfill/
+    if (doPolyfill) {
+        doPolyfill = false;
+        if(/MSIE|Trident/.test(navigator.userAgent)) {
+            $('body').append("<script type='text/javascript' src='" + foswiki.getPubUrlPath(foswiki.getPreference('SYSTEMWEB'), 'JQueryPlugin', '/plugins/wikiword/polyfill.min.js') + "'></script>");
+        }
+    }
 
     // call build either with an options object or with a source string
     if (typeof(options) === 'string') {
@@ -226,17 +250,17 @@ $.wikiword = {
 
     // transliterate unicode chars
     if (opts.transliterate) {
-      result = transl(source);
+      result = doTransliterate(source);
 
       /* Unfortunately the transliteration module does not provide any
          function to map selection indices for transliterations.
          Therefore we have to update the indices ourselves
       */
       var preSelectionString = source.substr(0, selectionStart);
-      var preSelectionDiff = transl(preSelectionString).length - preSelectionString.length;
+      var preSelectionDiff = doTransliterate(preSelectionString).length - preSelectionString.length;
 
       var selectionString = source.substring(selectionStart, selectionEnd);
-      var selectionDiff = transl(selectionString).length - selectionString.length;
+      var selectionDiff = doTransliterate(selectionString).length - selectionString.length;
 
       // Start shifts by the growth of the preselection string
       selectionStart += preSelectionDiff;
