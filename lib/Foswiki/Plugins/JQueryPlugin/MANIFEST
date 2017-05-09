@@ -798,6 +798,8 @@ pub/System/JQueryPlugin/plugins/validate/localization/methods_de.js 0644
 pub/System/JQueryPlugin/plugins/validate/localization/methods_nl.js 0644
 pub/System/JQueryPlugin/plugins/validate/localization/methods_pt.js 0644
 pub/System/JQueryPlugin/plugins/validate/Makefile 0644
+pub/System/JQueryPlugin/plugins/wikiword/polyfill.min.js 0644
+pub/System/JQueryPlugin/plugins/wikiword/polyfill.min.js.gz 0644
 pub/System/JQueryPlugin/plugins/wikiword/wikiword.js 0644
 pub/System/JQueryPlugin/plugins/wikiword/wikiword.js.gz 0644
 pub/System/JQueryPlugin/plugins/wikiword/wikiword.uncompressed.js 0644
