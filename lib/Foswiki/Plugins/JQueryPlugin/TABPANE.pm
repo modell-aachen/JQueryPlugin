@@ -129,6 +129,9 @@ sub handleTab {
         $tabClass .= ' jqAjaxTab';
     }
     my $metaData = scalar(@metaData) ? ' {' . join( ',', @metaData ) . '}' : '';
+    if (Foswiki::Func::getContext()->{SafeWikiSignable}) {
+        Foswiki::Plugins::SafeWikiPlugin::Signatures::permitInlineCode($metaData);
+    }
 
     my $style = '';
     $style .= "height:$height;" if defined $height;
