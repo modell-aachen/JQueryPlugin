@@ -76,17 +76,9 @@ sub init {
             $Foswiki::cfg{NameFilter} );
     }
 
-    # add exported preferences to head
-    my %prefs = ();
-    foreach my $pref ( split( /\s*,\s*/, $prefs ) ) {
-        $prefs{$pref} =
-          Foswiki::Func::expandCommonVariables( '%' . $pref . '%' );
-    }
+    Foswiki::Plugins::JQueryPlugin::handleExportPreference(undef, { _DEFAULT => $prefs });
 
-    my $text =
-        "<script class='\$zone \$id foswikiPreferences' type='text/json'>"
-      . JSON::to_json( \%prefs, { pretty => 1 } )
-      . "</script>";
+    my $text = "<script class='\$zone \$id foswikiPreferences' type='text/json'><!-- JQUERYPLUGIN::FOSWIKI::PREFERENCES::PLACEHOLDER --></script>";
 
     Foswiki::Func::addToZone( "script", "JQUERYPLUGIN::FOSWIKI::PREFERENCES",
         $text, "JQUERYPLUGIN::FOSWIKI" );
