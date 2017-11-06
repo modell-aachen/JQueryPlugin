@@ -34,6 +34,8 @@ $RELEASE = "6.30";
 $SHORTDESCRIPTION  = 'jQuery <nop>JavaScript library for Foswiki';
 $NO_PREFS_IN_TOPIC = 1;
 
+my $exportedPreferences;
+
 =begin TML
 
 ---++ initPlugin($topic, $web, $user) -> $boolean
@@ -71,6 +73,11 @@ sub initPlugin {
     Foswiki::Func::registerTagHandler( 'POPUPWINDOW', \&handlePopUpWindow );
 
     Foswiki::Func::registerTagHandler( 'PAGINATOR', \&handlePaginator );
+
+    Foswiki::Func::registerTagHandler( 'EXPORTPREFERENCE', \&handleExportPreference );
+
+    $exportedPreferences = {}; # Do this BEFORE initing FOSWIKI
+
     # init plugin handler and preload default plugins
     Foswiki::Plugins::JQueryPlugin::Plugins::init();
 
@@ -518,6 +525,30 @@ sub handleJQueryPlugins {
       Foswiki::Plugins::JQueryPlugin::Plugins::expandVariables($theSeparator);
 
     return $theHeader . join( $theSeparator, @result ) . $theFooter;
+}
+
+sub handleExportPreference {
+    my ( $session, $params, $theTopic, $theWeb ) = @_;
+
+    my $prefsString = $params->{_DEFAULT};
+    my @prefs = split(/\s*,\s*/, $prefsString);
+
+    foreach my $pref ( @prefs ) {
+        $exportedPreferences->{$pref} = 1;
+    }
+
+    return '';
+}
+
+sub completePageHandler {
+    foreach my $pref ( keys %$exportedPreferences ) {
+        $exportedPreferences->{$pref} =
+          Foswiki::Func::expandCommonVariables( '%' . $pref . '%' );
+    }
+
+    my $json = JSON::to_json( $exportedPreferences, { pretty => 1 } );
+
+    $_[0] =~ s#<!-- JQUERYPLUGIN::FOSWIKI::PREFERENCES::PLACEHOLDER -->#$json#g;
 }
 
 sub _inlineError {

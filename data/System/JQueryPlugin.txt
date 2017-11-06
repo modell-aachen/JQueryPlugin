@@ -114,6 +114,10 @@ in the filesystem, then there will be an internal redirect in the server while s
 The browser on the client side will unzip the css and js files automatically. This will drastically
 reduce bandwidth and speed up interactive performance.
 
+---++ Exporting preferences
+
+When your scripts need to access Foswiki preferences, you can export them with =%<nop>EXPORTPREFERENCE{"NameOfPreference"}%= and then access it in the browser with =foswiki.getPreference('NameOfPreference')=.
+
 ---++ Installation Instructions
 %$INSTALL_INSTRUCTIONS%
 
