@@ -35,6 +35,7 @@ $SHORTDESCRIPTION  = 'jQuery <nop>JavaScript library for Foswiki';
 $NO_PREFS_IN_TOPIC = 1;
 
 my $exportedPreferences;
+our $prefsPlaceholder = "{foswikiPrefs:'JQUERYPLUGIN::FOSWIKI::PREFERENCES::PLACEHOLDER'}";
 
 =begin TML
 
@@ -548,7 +549,7 @@ sub completePageHandler {
 
     my $json = JSON::to_json( $exportedPreferences, { pretty => 1 } );
 
-    $_[0] =~ s#<!-- JQUERYPLUGIN::FOSWIKI::PREFERENCES::PLACEHOLDER -->#$json#g;
+    $_[0] =~ s#$prefsPlaceholder#$json#g;
 }
 
 sub _inlineError {

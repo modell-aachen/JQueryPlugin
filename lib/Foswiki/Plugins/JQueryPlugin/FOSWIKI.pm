@@ -78,7 +78,7 @@ sub init {
 
     Foswiki::Plugins::JQueryPlugin::handleExportPreference(undef, { _DEFAULT => $prefs });
 
-    my $text = "<script class='\$zone \$id foswikiPreferences' type='text/json'><!-- JQUERYPLUGIN::FOSWIKI::PREFERENCES::PLACEHOLDER --></script>";
+    my $text = "<script class='\$zone \$id foswikiPreferences' type='text/json'>$Foswiki::Plugins::JQueryPlugin::prefsPlaceholder</script>";
 
     Foswiki::Func::addToZone( "script", "JQUERYPLUGIN::FOSWIKI::PREFERENCES",
         $text, "JQUERYPLUGIN::FOSWIKI" );
