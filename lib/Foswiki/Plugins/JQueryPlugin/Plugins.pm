@@ -50,7 +50,7 @@ sub init {
 
     # load jquery
     my $jQuery = $Foswiki::cfg{JQueryPlugin}{JQueryVersion}
-      || "jquery-2.2.4";
+      || "jquery-2.1.4";
 
     # test for the jquery library to be present
     unless ( -e $Foswiki::cfg{PubDir} . '/'
@@ -62,7 +62,7 @@ sub init {
         Foswiki::Func::writeWarning(
 "CAUTION: jQuery $jQuery not found. please fix the {JQueryPlugin}{JQueryVersion} settings."
         );
-        $jQuery = "jquery-2.2.4";
+        $jQuery = "jquery-2.1.4";
     }
 
     $jQuery .= ".uncompressed" if $debug;

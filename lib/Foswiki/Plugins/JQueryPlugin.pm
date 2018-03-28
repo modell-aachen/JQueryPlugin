@@ -557,24 +557,6 @@ sub _inlineError {
     return "<div class='foswikiAlert'>$msg</div>";
 }
 
-sub maintenanceHandler {
-    Foswiki::Plugins::MaintenancePlugin::registerCheck("jquery:lastversion", {
-        name => "JQuery use last version",
-        description => "Check if {JQueryPlugin}{JQueryVersion} is set to 2.2.4",
-        check => sub {
-            if( $Foswiki::cfg{JQueryPlugin}{JQueryVersion} eq 'jquery-2.2.4' ) {
-                return { result => 0 };
-            } else {
-                return {
-                    result => 1,
-                    priority => $Foswiki::Plugins::MaintenancePlugin::ERROR,
-                    solution => "Unless there is any reason for it: Set {JQueryPlugin}{JQueryVersion} in configure to jquery-2.2.4.",
-                };
-            }
-        }
-    });
-}
-
 1;
 __END__
 Foswiki - The Free and Open Source Wiki, http://foswiki.org/
