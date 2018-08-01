@@ -1,0 +1,1 @@
+/opt/repos/JQueryPlugin/pub/System/JQueryPlugin/jquery-2.2.4.uncompressed.js
