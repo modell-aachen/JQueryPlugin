@@ -186,6 +186,7 @@ sub handleTabForEach {
     my $format = $params->{format} || '';
     my $exclude = $params->{exclude} || '';
     my @excludes = split(/\s*,\s*/, $exclude);
+    my $class = $params->{class} || 'simple';
 
     my $session = $Foswiki::Plugins::SESSION;
     my $request = $session->{request};
@@ -198,7 +199,7 @@ sub handleTabForEach {
     my $pdfseparator = $params->{pdfseparator};
     my $render_pdf = $pdf && ($pdfview || $pdftitleformat || $pdfformat || $pdfseparator);
 
-    my @out = $this->handleTabPane({ select => $params->{select} || 1, class => 'simple' });
+    my @out = $this->handleTabPane({ select => $params->{select} || 1, class => $class });
     @out = () if $render_pdf;
 
     for my $v (@values) {
