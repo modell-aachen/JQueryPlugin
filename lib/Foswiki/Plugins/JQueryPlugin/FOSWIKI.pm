@@ -60,21 +60,14 @@ sub init {
     # get exported prefs
     my $prefs = Foswiki::Func::getPreferencesValue('EXPORTEDPREFERENCES') || '';
 
-    # try a little harder for foswiki engines < 1.1
-    if ( $Foswiki::Plugins::VERSION < 2.1 ) {
-
-        # defaults since foswiki >= 1.1.0
-        $prefs =
-'PUBURL, PUBURLPATH, SCRIPTSUFFIX, SCRIPTURL, SCRIPTURLPATH, SERVERTIME, SKIN, SYSTEMWEB, TOPIC, USERNAME, USERSWEB, WEB, WIKINAME, WIKIUSERNAME, NAMEFILTER';
-        $prefs .= ', TWISTYANIMATIONSPEED'
-          if $Foswiki::cfg{Plugins}{TwistyPlugin}{Enabled};
-    }
-
     # init NAMEFILTER
     unless ( Foswiki::Func::getPreferencesValue('NAMEFILTER') ) {
         Foswiki::Func::setPreferencesValue( 'NAMEFILTER',
             $Foswiki::cfg{NameFilter} );
     }
+    Foswiki::Func::setPreferencesValue( 'SCRIPTURLPATHS', $Foswiki::cfg{ScriptUrlPath} );
+    Foswiki::Func::setPreferencesValue( 'COOKIEREALM', $Foswiki::cfg{Sessions}{CookieRealm} );
+    Foswiki::Func::setPreferencesValue( 'URLHOST', Foswiki::Func::getUrlHost() );
 
     Foswiki::Plugins::JQueryPlugin::handleExportPreference(undef, { _DEFAULT => $prefs });
 
