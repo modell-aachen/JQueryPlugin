@@ -1,6 +1,6 @@
 # ---+ Extensions
 # ---++ JQueryPlugin
-# ---+++ General settings 
+# ---+++ General settings
 # **BOOLEAN LABEL="Debug"**
 # This flag enables the debug mode for JQueryPlugin and all of its sub-modules.
 # Instead of loading jquery.myplugin.js, it will load jquery.myplugin.uncompressed.js.
@@ -24,7 +24,7 @@ $Foswiki::cfg{JQueryPlugin}{IconSearchPath} = 'FamFamFamSilkIcons, FamFamFamSilk
 $Foswiki::cfg{JQueryPlugin}{NoConflict} = 0;
 
 # **STRING LABEL="Default Plugins"**
-# List of plugins loaded by default on any page. Note that you need at least the "migrate" plugin being loaded by default in case you are using 
+# List of plugins loaded by default on any page. Note that you need at least the "migrate" plugin being loaded by default in case you are using
 # a newer jQuery library. Starting with jquery-1.9.1 all deprecated methods have been removed from it and put into the "migrate" plugin.
 $Foswiki::cfg{JQueryPlugin}{DefaultPlugins} = '';
 
@@ -37,9 +37,9 @@ $Foswiki::cfg{JQueryPlugin}{JQueryVersion} = 'jquery-2.2.4';
 
 # **SELECT , jquery-1.7.1, jquery-1.7.2, jquery-1.8.0, jquery-1.8.1, jquery-1.8.2, jquery-1.8.3, jquery-1.9.1, jquery-1.10.0, jquery-1.10.1, jquery-1.11.0, jquery-1.11.1, jquery-1.11.2, jquery-1.11.3**
 # Use a different jQuery library for Internet Explorer 6/7/8. Since jQuery-2.0 these old browsers aren't suppored anymore.
-# Use one of the jQuery-1.x libraries to still serve a compatible jQuery to these browsers. Or leave it empty to use the same 
+# Use one of the jQuery-1.x libraries to still serve a compatible jQuery to these browsers. Or leave it empty to use the same
 # library version for all browsers.
-$Foswiki::cfg{JQueryPlugin}{JQueryVersionForOldIEs} = 'jquery-1.11.3';
+$Foswiki::cfg{JQueryPlugin}{JQueryVersionForOldIEs} = '';
 
 # **SELECT ,base, flickr, foswiki, lightness, redmond, smoothness **
 $Foswiki::cfg{JQueryPlugin}{JQueryTheme} = 'foswiki';
@@ -245,7 +245,7 @@ $Foswiki::cfg{JQueryPlugin}{Plugins}{WikiWord}{Enabled} = 1;
 $Foswiki::cfg{JQueryPlugin}{Plugins}{Autocomplete}{Enabled} = 0;
 
 # **BOOLEAN LABEL="Corner" EXPERT**
-# Warning: this plugin is deprecated. 
+# Warning: this plugin is deprecated.
 $Foswiki::cfg{JQueryPlugin}{Plugins}{Corner}{Enabled} = 0;
 
 # **BOOLEAN LABEL="Gradient" EXPERT**
@@ -269,7 +269,7 @@ $Foswiki::cfg{JQueryPlugin}{Plugins}{SimpleModal}{Enabled} = 0;
 
 # **BOOLEAN LABEL="Supersubs"**
 # Warning: This plugin is deprecated. The latest superfish module supersedes it.
-$Foswiki::cfg{JQueryPlugin}{Plugins}{Supersubs}{Enabled} = 0;
+$Foswiki::cfg{JQueryPlugin}{Plugins}{Supersubs}{Enabled} = 1;
 
 # **BOOLEAN LABEL="Tmpl" EXPERT**
 # Warning: This plugin is deprecated. Please use jsrender.
@@ -277,6 +277,6 @@ $Foswiki::cfg{JQueryPlugin}{Plugins}{Tmpl}{Enabled} = 0;
 
 # **BOOLEAN LABEL="Tooltip" EXPERT**
 # Warning: this plugin is deprecated. Please use the tooltip plugin part of the jQuery-ui package.
-$Foswiki::cfg{JQueryPlugin}{Plugins}{Tooltip}{Enabled} = 0;
+$Foswiki::cfg{JQueryPlugin}{Plugins}{Tooltip}{Enabled} = 1;
 
 1;
