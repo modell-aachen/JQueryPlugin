@@ -27,6 +27,7 @@ to derive the !WikiWord using HTML5 meta data:
   prefix:'string to be prefixed to the wiki word', /* e.g. 'Project' */
   suffix:'string to be appended to the wiki word', /* e.g. 'AUTOINC0' */
   transliterate: true,
+  wikify_own_inputs: 0, /* Additionally to the source, wikify inputs made directly to the input */
   allow:'characters that are allowed in a wiki word' /* e.g. 'a-zA-Z\\d' */
 }
 </verbatim>

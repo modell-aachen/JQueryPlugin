@@ -79,6 +79,13 @@ $.wikiword = {
       }).keyup(function() {
         $.wikiword.handleChange($source, $this, thisOpts);
       }).change();
+      if(thisOpts.wikify_own_inputs) {
+        $this.change(function() {
+          $.wikiword.handleChange($this, $this, thisOpts);
+        }).keyup(function() {
+          $.wikiword.handleChange($this, $this, thisOpts);
+        });
+      }
     });
   },
 

@@ -4,6 +4,7 @@ package Foswiki::Plugins::JQueryPlugin::RENDER;
 use strict;
 use warnings;
 
+use Foswiki::Func                          ();
 use Foswiki::Plugins::JQueryPlugin::Plugin ();
 our @ISA = qw( Foswiki::Plugins::JQueryPlugin::Plugin );
 
@@ -68,7 +69,7 @@ sub restTmpl {
 
     if ( $result eq "" ) {
         $response->header( -status => 500 );
-        $session->writeCompletePage( "ERROR: template '$name' not found",
+        $session->writeCompletePage( "ERROR: template '" . Foswiki::Func::encode($name) . "' not found",
             undef, $contentType );
     }
     else {
