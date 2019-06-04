@@ -39,7 +39,7 @@ sub new {
     );
 
     $this->{summary} = <<'HERE';
-%RED%DEPRECATED%ENDCOLOR%
+%RED{encode="none"}%DEPRECATED%ENDCOLOR{encode="none"}%
 
 Nifty for jQuery is a modified and optimized version of Nifty Corners Cube.
 The new one has been programmed by Paul Bakaus (paul.bakaus@gmail.com).

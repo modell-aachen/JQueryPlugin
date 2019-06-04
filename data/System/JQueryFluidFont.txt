@@ -34,7 +34,7 @@ using JQueryMetadata.
 %JQREQUIRE{"fluidfont"}%
 
 <div class="jqFluidFont {width:960, min:7, max:20}" style="border:1px solid #ddd;padding:10px">
-%RED%This area uses fluid typography.%ENDCOLOR%
+%RED{encode="none"}%This area uses fluid typography.%ENDCOLOR{encode="none"}%
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam facilisis neque id ipsum imperdiet at ornare magna auctor. Nunc condimentum enim vitae libero placerat scelerisque. Nunc eu neque orci, in hendrerit tortor. Vestibulum quis arcu sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nibh est, consectetur quis commodo scelerisque, laoreet ac nulla. Mauris feugiat elit non ante hendrerit ut ultricies nisl aliquam. Pellentesque fermentum tortor a nunc vulputate laoreet. Nulla at odio ut magna bibendum dignissim. Duis eget lorem ut erat blandit accumsan in quis dolor. 
 
