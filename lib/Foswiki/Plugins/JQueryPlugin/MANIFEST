@@ -80,7 +80,6 @@ lib/Foswiki/Configure/Checkers/JQueryPlugin/Plugins/SimpleModal/Enabled.pm 0644
 lib/Foswiki/Configure/Checkers/JQueryPlugin/Plugins/Supersubs/Enabled.pm 0644
 lib/Foswiki/Configure/Checkers/JQueryPlugin/Plugins/Tmpl/Enabled.pm 0644
 lib/Foswiki/Configure/Checkers/JQueryPlugin/Plugins/Tooltip/Enabled.pm 0644
-lib/Foswiki/Form/Textboxlist.pm 0644
 lib/Foswiki/Plugins/JQueryPlugin.pm 0644
 lib/Foswiki/Plugins/JQueryPlugin/DEPENDENCIES 0644
 lib/Foswiki/Plugins/JQueryPlugin/AUTOCOMPLETE.pm 0644
