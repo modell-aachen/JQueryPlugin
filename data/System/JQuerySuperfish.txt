@@ -52,7 +52,7 @@ Requires Foswiki:Extensions.TreePlugin
 %CLEAR%
 %ENDSECTION{"treeplugin_example"}%
 </verbatim>
-%IF{"context TreePluginEnabled" then="$percntINCLUDE{\"%TOPIC%\" section=\"treeplugin_example\"}$percnt" else="%RED% !TreePlugin not enabled %ENDCOLOR%"}%
+%IF{"context TreePluginEnabled" then="$percntINCLUDE{\"%TOPIC%\" section=\"treeplugin_example\"}$percnt" else="%RED{encode="none"}% !TreePlugin not enabled %ENDCOLOR{encode="none"}%"}%
 
 ---+++ Basic style
 <ul id="sample-menu-1" class="sf-menu">
